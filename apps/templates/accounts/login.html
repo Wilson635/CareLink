@@ -14,7 +14,7 @@
             <div class="row">
               <div class="d-flex justify-content-center">
                 <div class="auth-header">
-                  <h2 class="text-secondary mt-5"><b>Hi, Welcome Back</b></h2>
+                  <h2 class="text-secondary mt-5"><b>Salut👋, bienvenue ! </b></h2>
                 </div>
               </div>
             </div>
@@ -35,7 +35,7 @@
                   {{ msg | safe }}
                 </span>
               {% else %}
-                Add your credentials
+                Ajoutez vos identifiants et c'est parti !
               {% endif %} 
 
             </h5>
@@ -46,28 +46,28 @@
 
               <div class="form-floating mb-3">
                 {{ form.username(placeholder="Username", class="form-control") }}
-                <label for="floatingInput">Username</label>
+                <label for="floatingInput">Nom d'utilisateur</label>
               </div>
               <div class="form-floating mb-3">
                 {{ form.password(placeholder="Password", class="form-control", type="password") }}
-                <label for="floatingInput">Password</label>
+                <label for="floatingInput">Mot de passe</label>
               </div>
               <div class="d-flex mt-1 justify-content-between">
                 <div class="form-check">
                   <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="" />
-                  <label class="form-check-label text-muted" for="customCheckc1">Remember me</label>
+                  <label class="form-check-label text-muted" for="customCheckc1">Se souvenir de moi</label>
                 </div>
                 <h5 class="text-secondary">
-                  <a href="{{ url_for('home_blueprint.password_reset') }}">Forgot Password?</a>
+                  <a href="{{ url_for('home_blueprint.password_reset') }}">Mot de passe oublié?</a>
                 </h5>
               </div>
               <div class="d-grid mt-4">
-                <button type="submit" name="login" class="btn btn-secondary">Sign In</button>
+                <button type="submit" name="login" class="btn btn-secondary">Continue</button>
               </div>
             </form>
             <hr />
-            <h5 class="d-flex justify-content-center">Don't have an account?
-              <a class="ms-2" href="{{ url_for('authentication_blueprint.register') }}">Register</a>
+            <h5 class="d-flex justify-content-center">Vous n'êtes pas membre?
+              <a class="ms-2" href="{{ url_for('authentication_blueprint.register') }}">Rejoignez-nous</a>
             </h5>
           </div>
         </div>
