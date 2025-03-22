@@ -1,78 +1,111 @@
 <!-- [ Sidebar Menu ] start -->
 <nav class="pc-sidebar">
-  <div class="navbar-wrapper">
-    <div class="m-header">
-      <a href="index.html" class="b-brand">
-        <!-- ========   Change your logo from here   ============ -->
-        <img src="{{ url_for('static', filename='assets/images/logo-dark.svg') }}" alt="" class="logo logo-lg" />
-      </a>
+    <div class="navbar-wrapper">
+        <div class="m-header">
+            <a href="index.html" class="b-brand">
+                <!-- ========   Change your logo from here   ============ -->
+                <img src="{{ url_for('static', filename='assets/images/logo-dark.svg') }}" alt="" class="logo logo-lg"/>
+            </a>
+        </div>
+        <div class="navbar-content">
+            <ul class="pc-navbar">
+                <li class="pc-item pc-caption">
+                    <label>Dashboard</label>
+                    <i class="ti ti-dashboard"></i>
+                </li>
+
+                <li class="pc-item">
+                    <a href="/" class="pc-link">
+            <span class="pc-micon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path
+                        fill="currentColor" fill-rule="evenodd"
+                        d="M19 11a2 2 0 0 1 1.995 1.85L21 13v6a2 2 0 0 1-1.85 1.995L19 21h-4a2 2 0 0 1-1.995-1.85L13 19v-6a2 2 0 0 1 1.85-1.995L15 11zm0-8a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
+                        class="duoicon-secondary-layer" opacity="0.3"/><path fill="currentColor" fill-rule="evenodd"
+                                                                             d="M9 3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
+                                                                             class="duoicon-primary-layer"/><path
+                        fill="currentColor" fill-rule="evenodd"
+                        d="M9 15a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z"
+                        class="duoicon-secondary-layer" opacity="0.3"/></svg>
+            </span>
+                        <span class="pc-mtext">Tableau de bord</span></a>
+                </li>
+
+                <li class="pc-item pc-caption">
+                    <label>Services</label>
+                    <i class="ti ti-news"></i>
+                </li>
+                <li class="pc-item">
+                    <a href="{{ url_for('home_blueprint.chambres') }}" class="pc-link"><span class="pc-micon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path
+                                fill="currentColor"
+                                d="M3.002 12.267a2 2 0 0 0-.85.968C2 13.602 2 14.068 2 15s0 1.398.152 1.765a2 2 0 0 0 1.083 1.083c.252.104.55.137 1.015.147V20a.75.75 0 0 0 1.5 0v-2h12.5v2a.75.75 0 0 0 1.5 0v-2.005c.464-.01.763-.043 1.015-.147a2 2 0 0 0 1.083-1.083C22 16.398 22 15.932 22 15s0-1.398-.152-1.765a2 2 0 0 0-.85-.968L19.25 12H4.75z"/><path
+                                fill="currentColor"
+                                d="M10.998 4h2c3.77 0 5.656 0 6.828 1.172c1.023 1.022 1.153 2.588 1.17 5.477v1.617L19.25 12H4.75l-1.748.267H3V10.65c.017-2.889.147-4.455 1.17-5.477C5.34 4 7.225 4 10.997 4"
+                                opacity="0.5"/><path fill="currentColor"
+                                                     d="M19 10.5c0-1.186-.002-1.983-.081-2.578c-.076-.568-.206-.811-.365-.971c-.158-.16-.399-.293-.96-.37c-.589-.079-1.377-.081-2.55-.081h-2.131v4zm-7.913 0v-4h-2.13c-1.174 0-1.962.002-2.55.082c-.562.076-.803.208-.961.369c-.159.16-.29.403-.365.971C5.001 8.517 5 9.314 5 10.5z"/></svg>
+                    </span><span class="pc-mtext">Chambres</span></a>
+                </li>
+                <li class="pc-item">
+                    <a href="{{ url_for('home_blueprint.hospitalisation') }}" class="pc-link"><span class="pc-micon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path
+                                fill="currentColor"
+                                d="M2.346 11.25A6.3 6.3 0 0 1 2 9.26C2 3.35 7.5.663 12 5.5C16.5.663 22 3.349 22 9.26a6.3 6.3 0 0 1-.346 1.99h-3.13c-.546 0-1.03-.002-1.471.195c-.441.196-.765.557-1.13.963l-.075.084l-1.029 1.143a.25.25 0 0 1-.379-.007l-3.55-4.305c-.14-.17-.289-.35-.435-.485a1.24 1.24 0 0 0-.773-.353a1.24 1.24 0 0 0-.81.258c-.16.116-.33.278-.49.43l-1.53 1.456c-.471.45-.57.526-.672.567c-.103.042-.228.054-.879.054z"
+                                opacity="0.5"/><path fill="currentColor"
+                                                     d="M21.654 11.25h-3.13c-.546-.001-1.03-.002-1.472.194c-.44.197-.764.558-1.129.964l-.075.084l-1.029 1.143a.25.25 0 0 1-.38-.008l-3.55-4.304c-.14-.17-.29-.35-.435-.485a1.24 1.24 0 0 0-.773-.354a1.24 1.24 0 0 0-.81.26c-.161.115-.331.277-.49.428l-1.53 1.457c-.471.45-.57.526-.673.567s-.227.054-.878.054H2.346c1.036 3.105 4.191 6.144 6.615 8.12C10.294 20.458 10.96 21 12 21s1.706-.543 3.038-1.63c2.424-1.976 5.58-5.015 6.616-8.12"/></svg>
+                    </span>
+                        <span
+                                class="pc-mtext">Hospitalisation</span></a>
+                </li>
+                <li class="pc-item">
+                    <a href="{{ url_for('home_blueprint.consultation') }}" class="pc-link"><span class="pc-micon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path
+                                fill="currentColor"
+                                d="M21 15.998v-6c0-2.828 0-4.242-.879-5.121C19.353 4.109 18.175 4.012 16 4H8c-2.175.012-3.353.109-4.121.877C3 5.756 3 7.17 3 9.998v6c0 2.829 0 4.243.879 5.122c.878.878 2.293.878 5.121.878h6c2.828 0 4.243 0 5.121-.878c.879-.88.879-2.293.879-5.122"
+                                opacity="0.5"/><path fill="currentColor"
+                                                     d="M8 3.5A1.5 1.5 0 0 1 9.5 2h5A1.5 1.5 0 0 1 16 3.5v1A1.5 1.5 0 0 1 14.5 6h-5A1.5 1.5 0 0 1 8 4.5z"/><path
+                                fill="currentColor" fill-rule="evenodd"
+                                d="M6.25 10.5A.75.75 0 0 1 7 9.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75M6.25 14a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75m-3.5 3.5a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75"
+                                clip-rule="evenodd"/></svg>
+                    </span><span class="pc-mtext">Consultation</span><span
+                            class="pc-arrow"></span> </a>
+                </li>
+
+                <li class="pc-item pc-caption">
+                    <label>Personnels</label>
+                    <i class="ti ti-brand-chrome"></i>
+                </li>
+                <li class="pc-item">
+                    <a href="{{ url_for('home_blueprint.medecin') }}" class="pc-link"><span class="pc-micon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path
+                                fill="currentColor"
+                                d="M14 4h-4C6.229 4 4.343 4 3.172 5.172S2 8.229 2 12s0 5.657 1.172 6.828S6.229 20 10 20h4c3.771 0 5.657 0 6.828-1.172S22 15.771 22 12s0-5.657-1.172-6.828S17.771 4 14 4"
+                                opacity="0.5"/><path fill="currentColor"
+                                                     d="M13.25 9a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75M9 11a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 6c4 0 4-.895 4-2s-1.79-2-4-2s-4 .895-4 2s0 2 4 2"/></svg>
+                    </span><span class="pc-mtext">Médecin</span></a></li>
+
+                <li class="pc-item">
+                    <a href="{{ url_for('home_blueprint.infirmiere') }}" class="pc-link"><span class="pc-micon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle
+                                cx="11" cy="6" r="4" fill="currentColor"/><path fill="currentColor" fill-rule="evenodd"
+                                                                                d="M14.513 21.487C15.025 22 15.85 22 17.5 22s2.475 0 2.987-.513C21 20.975 21 20.15 21 18.5s0-2.475-.513-2.987C19.975 15 19.15 15 17.5 15s-2.475 0-2.987.513C14 16.025 14 16.85 14 18.5s0 2.475.513 2.987m2.014-1.51C15.824 19.474 15 18.883 15 17.86c0-1.13 1.375-1.931 2.5-.845c1.125-1.087 2.5-.285 2.5.845c0 1.023-.825 1.614-1.527 2.117l-.213.154c-.26.19-.51.369-.76.369s-.5-.18-.76-.37z"
+                                                                                clip-rule="evenodd"/><path
+                                fill="currentColor"
+                                d="M14.594 21.563a1 1 0 0 1-.081-.076C14 20.975 14 20.15 14 18.5s0-2.475.513-2.987C15.025 15 15.85 15 17.5 15h.43c-1.383-1.345-3.969-2.25-6.93-2.25c-4.418 0-8 2.015-8 4.5s0 4.5 8 4.5c1.443 0 2.625-.066 3.594-.187"
+                                opacity="0.5"/></svg>
+                    </span><span class="pc-mtext">Infirmières</span></a></li>
+
+                <li class="pc-item">
+                    <a href="{{ url_for('home_blueprint.patients') }}" class="pc-link"><span class="pc-micon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle
+                                cx="12" cy="6" r="4" fill="currentColor"/><path fill="currentColor"
+                                                                                d="M18.095 15.031C17.67 15 17.149 15 16.5 15c-1.65 0-2.475 0-2.987.513C13 16.025 13 16.85 13 18.5c0 1.166 0 1.92.181 2.443Q12.605 21 12 21c-3.866 0-7-1.79-7-4s3.134-4 7-4c2.613 0 4.892.818 6.095 2.031"
+                                                                                opacity="0.5"/><path fill="currentColor"
+                                                                                                     fill-rule="evenodd"
+                                                                                                     d="M16.5 22c-1.65 0-2.475 0-2.987-.513C13 20.975 13 20.15 13 18.5s0-2.475.513-2.987C14.025 15 14.85 15 16.5 15s2.475 0 2.987.513C20 16.025 20 16.85 20 18.5s0 2.475-.513 2.987C18.975 22 18.15 22 16.5 22m.583-5.056a.583.583 0 1 0-1.166 0v.973h-.973a.583.583 0 1 0 0 1.166h.973v.973a.583.583 0 1 0 1.166 0v-.973h.973a.583.583 0 1 0 0-1.166h-.973z"
+                                                                                                     clip-rule="evenodd"/></svg>
+                    </span><span class="pc-mtext">Patients</span></a></li>
+            </ul>
+        </div>
     </div>
-    <div class="navbar-content">
-      <ul class="pc-navbar">
-        <li class="pc-item pc-caption">
-          <label>Dashboard</label>
-          <i class="ti ti-dashboard"></i>
-        </li>
-        
-        <li class="pc-item">
-          <a href="/" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-            <span class="pc-mtext">Dashboard</span></a>
-        </li>
-
-        <li class="pc-item pc-caption">
-          <label>Pages</label>
-          <i class="ti ti-news"></i>
-        </li>
-        <li class="pc-item pc-hasmenu">
-          <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-key"></i></span><span
-              class="pc-mtext">User Pages</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
-          <ul class="pc-submenu">
-
-            {% if current_user.is_authenticated %}
-              <li class="pc-item"><a class="pc-link" href="{{ url_for('authentication_blueprint.logout') }}">Logout</a></li>
-            {% else %}
-              <li class="pc-item"><a class="pc-link" href="{{ url_for('authentication_blueprint.login') }}">Login</a></li>
-              <li class="pc-item"><a class="pc-link" href="{{ url_for('authentication_blueprint.register') }}">Register</a></li>
-            {% endif %}
-
-          </ul>
-        </li>
-        <li class="pc-item pc-caption">
-          <label>Elements</label>
-          <i class="ti ti-apps"></i>
-        </li>
-        <li class="pc-item">
-          <a href="{{ url_for('home_blueprint.typography') }}" class="pc-link"><span class="pc-micon"><i
-                class="ti ti-typography"></i></span><span class="pc-mtext">Typography</span></a>
-        </li>
-        <li class="pc-item">
-          <a href="{{ url_for('home_blueprint.color') }}" class="pc-link"><span class="pc-micon"><i class="ti ti-brush"></i></span><span
-              class="pc-mtext">Color</span></a>
-        </li>
-        <li class="pc-item">
-          <a href="{{ url_for('home_blueprint.icon_tabler') }}" class="pc-link"><span class="pc-micon"><i
-                class="ti ti-plant-2"></i></span><span class="pc-mtext">Tabler</span><span class="pc-arrow"></a>
-        </li>
-
-        <li class="pc-item pc-caption">
-          <label>Other</label>
-          <i class="ti ti-brand-chrome"></i>
-        </li>
-        <li class="pc-item">
-          <a href="{{ url_for('home_blueprint.sample_page') }}" class="pc-link"><span class="pc-micon"><i
-                class="ti ti-brand-chrome"></i></span><span class="pc-mtext">Sample page</span></a></li>
-        <li class="pc-item">
-          <a href="https://github.com/app-generator/flask-berry-dashboard" target="_blank" class="pc-link"><span
-              class="pc-micon"><i class="ti ti-vocabulary"></i></span><span class="pc-mtext">DOCS</span></a></li>
-      </ul>
-      <div class="pc-navbar-card bg-primary rounded">
-        <h4 class="text-white">Berry Bootstrap 5</h4>
-        <p class="text-white opacity-75">Open-Source Theme</p>
-        <a href="https://appseed.us/product/berry-dashboard/flask/"  
-           target="_blank" class="btn btn-light text-primary">Download</a>
-      </div>
-    </div>
-  </div>
 </nav>
 <!-- [ Sidebar Menu ] end -->
