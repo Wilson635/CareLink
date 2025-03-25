@@ -17,6 +17,7 @@ class Users(db.Model, UserMixin):
     username = db.Column(db.String(64), unique=False)
     email = db.Column(db.String(64), unique=True)
     password = db.Column(db.LargeBinary)
+    role = db.Column(db.String(64), unique=True)
 
     def __init__(self, **kwargs):
         for property, value in kwargs.items():
@@ -34,6 +35,47 @@ class Users(db.Model, UserMixin):
 
     def __repr__(self):
         return str(self.username)
+
+
+class Speciality(db.Model):
+    __tablename__ = 'Speciality'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    description = db.Column(db.String(64), unique=False)
+    category = db.Column(
+        db.Enum('Médecine', 'Chirugie', 'Pédiatrie et Gynécologie', 'Urgences et Soins Intensifs', 'Médico-Technique',
+                'Psychiatrie et Rééducation'), unique=False)
+    date_creation = db.Column(db.DateTime, unique=False)
+
+    def __init__(self, **kwargs):
+        for property, value in kwargs.items():
+            setattr(self, property, value)
+
+    def __repr__(self):
+        return str(self.name)
+
+
+class Chambres(db.Model):
+    __tablename__ = 'Chambres'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    description = db.Column(db.String(64), unique=False)
+    date_creation = db.Column(db.DateTime, unique=False)
+    capacity = db.Column(db.Integer, unique=False)
+    statut = db.Column(db.Enum('Disponible', 'Occupée', 'Maintenance'), unique=False)
+    speciality_id = db.Column(db.Integer, db.ForeignKey('Speciality.id'))
+
+    speciality = db.relationship('Speciality',
+                                 backref=db.backref('chambres', lazy='dynamic'))
+
+    def __init__(self, **kwargs):
+        for property, value in kwargs.items():
+            setattr(self, property, value)
+
+    def __repr__(self):
+        return str(self.name)
 
 
 @login_manager.user_loader

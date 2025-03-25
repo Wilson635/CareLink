@@ -2,11 +2,13 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+from apps import db
+from apps.authentication.models import Chambres
 from apps.home import blueprint
 from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
+from apps.home.forms import RoomForm
 
 
 @blueprint.route('/index')
@@ -79,6 +81,20 @@ def password_change():
 @blueprint.route('/accounts/password-change-done/')
 def password_change_done():
     return render_template('accounts/password_change_done.html')
+
+
+@blueprint.route('/room-register')
+@login_required
+def room_register():
+    room = RoomForm(request.form)
+
+    if request.method == 'POST':
+
+        rooms = Chambres(**request.form)
+        db.session.add(rooms)
+        db.session.commit()
+
+    return render_template('pages/chambres.html', form=room)
 
 
 @blueprint.route('/<template>')
