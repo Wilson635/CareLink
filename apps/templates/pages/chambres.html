@@ -3,70 +3,119 @@
 {% block title %} Chambres {% endblock title %}
 
 {% block content %}
-  <!-- [ Main Content ] start -->
-  <div class="pc-container">
-    <div class="pc-content">
-      <!-- [ breadcrumb ] start -->
-      <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Nos Chambres</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page">Chambres</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- [ breadcrumb ] end -->
-
-
-      <!-- [ Main Content ] start -->
-      <div class="d-flex flex-wrap flex-md-nowrap align-items-center py-4">
-
-        <div class="w-100">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="card">
-                <div class="card-header">
-                  <h5>Chambres</h5>
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pc-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Nos Chambres</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Chambres</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                  <div class="dt-ext table-responsive">
-                    <table class="display gap-5" id="advance-1">
-                      <thead>
-                        <tr class="gap-5">
-                          <th>Num chambre</th>
-                          <th>Num lit</th>
-                          <th>Num chambre</th>
-                          <th>Num chambre</th>
-                          <th>Num chambre</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>61</td>
-                          <td>2011/04/25</td>
-                          <td>$320,800</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+            <!-- [ breadcrumb ] end -->
+
+
+            <!-- [ Main Content ] start -->
+            <div class="row">
+
+
+                <div class="col-xl-4 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col">
+                                    <h4>Enregistrer une chambre</h4>
+                                </div>
+                                <div class="col-auto"></div>
+                            </div>
+                            <form role="form" method="post" action="">
+                                <div class="form-floating mb-3">
+                                    {{ form.numbers(placeholder="Numéro de chambre", class="input form-control", type="text") }}
+                                    <label for="floatingInput">Numéro de chambre</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.speciality(placeholder="Specialité de chambre", class="input form-control", type="text") }}
+                                    <label for="floatingInput">Specialité de chambre</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.type(placeholder="Type de chambre", class="input form-control", type="text") }}
+                                    <label for="floatingInput">Type de chambre</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.capacity(placeholder="Capacité de la chambre", class="input form-control", type="number") }}
+                                    <label for="floatingInput">Capacité de la chambre</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.etat(placeholder="Etat de la chambre", class="input form-control", type="text") }}
+                                    <label for="floatingInput">Etat de la chambre</label>
+                                </div>
+
+                                <div class="d-grid mt-4">
+                                    <button type="submit" name="register" class="btn btn-secondary p-2">
+                                        Enrégistrer la chambre
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-8 col-md-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Chambres</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="dt-ext table-responsive">
+                                        <table class="display gap-5" id="advance-1">
+                                            <thead>
+                                            <tr class="gap-5">
+                                                <th>Num chambre</th>
+                                                <th>Num lit</th>
+                                                <th>Num chambre</th>
+                                                <th>Num chambre</th>
+                                                <th>Num chambre</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td>61</td>
+                                                <td>2011/04/25</td>
+                                                <td>$320,800</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- [ Main Content ] end -->
         </div>
-      </div>
-      <!-- [ Main Content ] end -->
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
+    <!-- [ Main Content ] end -->
 {% endblock content %}

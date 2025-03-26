@@ -2,10 +2,12 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
+from datetime import datetime
+
 from apps import db
 from apps.authentication.models import Chambres
 from apps.home import blueprint
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 from apps.home.forms import RoomForm
@@ -17,10 +19,28 @@ def index():
     return render_template('pages/index.html', segment='index')
 
 
-@blueprint.route('/chambres')
+@blueprint.route('/chambres', methods=['GET', 'POST'])
 @login_required
 def chambres():
-    return render_template('pages/chambres.html')
+    form = RoomForm(request.form)
+
+    if request.method == 'POST' and form.validate():
+        new_room = Chambres(
+            name=form.numbers.data,
+            speciality_id=form.speciality.data,
+            type=form.type.data,
+            capacity=form.capacity.data,
+            statut=form.etat.data,
+            date_creation=datetime.utcnow()
+        )
+        db.session.add(new_room)
+        db.session.commit()
+        flash("Chambre enregistrée avec succès.", "success")
+        return redirect(url_for('blueprint.chambres'))
+
+    chambres_list = Chambres.query.all()
+    return render_template('pages/chambres.html', form=form, chambres=chambres_list)
+
 
 
 @blueprint.route('/hospitalisation')
@@ -81,20 +101,6 @@ def password_change():
 @blueprint.route('/accounts/password-change-done/')
 def password_change_done():
     return render_template('accounts/password_change_done.html')
-
-
-@blueprint.route('/room-register')
-@login_required
-def room_register():
-    room = RoomForm(request.form)
-
-    if request.method == 'POST':
-
-        rooms = Chambres(**request.form)
-        db.session.add(rooms)
-        db.session.commit()
-
-    return render_template('pages/chambres.html', form=room)
 
 
 @blueprint.route('/<template>')

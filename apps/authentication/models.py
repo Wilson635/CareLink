@@ -64,6 +64,7 @@ class Chambres(db.Model):
     description = db.Column(db.String(64), unique=False)
     date_creation = db.Column(db.DateTime, unique=False)
     capacity = db.Column(db.Integer, unique=False)
+    type = db.Column(db.Enum('Standard', 'VIP', 'Privée'), unique=False)
     statut = db.Column(db.Enum('Disponible', 'Occupée', 'Maintenance'), unique=False)
     speciality_id = db.Column(db.Integer, db.ForeignKey('Speciality.id'))
 
