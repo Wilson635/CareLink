@@ -79,6 +79,29 @@ class Chambres(db.Model):
         return str(self.name)
 
 
+class Patients(db.Model):
+    __tablename__ = 'Patients'
+
+    id_patient = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    code_patient = db.Column(db.String(50), unique=True, nullable=False)
+    nom = db.Column(db.String(100), nullable=False)
+    prenom = db.Column(db.String(100), nullable=False)
+    date_naissance = db.Column(db.Date, nullable=False)
+    sexe = db.Column(db.Enum('M', 'F'), nullable=False)
+    adresse = db.Column(db.Text, nullable=True)
+    telephone = db.Column(db.String(20), nullable=True)
+    email = db.Column(db.String(100), unique=True, nullable=True)
+    groupe_sanguin = db.Column(db.Enum('A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'), nullable=True)
+    historique_medical = db.Column(db.Text, nullable=True)
+
+    def __init__(self, **kwargs):
+        for property, value in kwargs.items():
+            setattr(self, property, value)
+
+    def __repr__(self):
+        return f"{self.nom} {self.prenom} ({self.code_patient})"
+
+
 @login_manager.user_loader
 def user_loader(id):
     return Users.query.filter_by(id=id).first()

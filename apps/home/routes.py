@@ -5,12 +5,12 @@ Copyright (c) 2019 - present AppSeed.us
 from datetime import datetime
 
 from apps import db
-from apps.authentication.models import Chambres, Speciality
+from apps.authentication.models import Chambres, Speciality, Patients
 from apps.home import blueprint
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-from apps.home.forms import RoomForm
+from apps.home.forms import RoomForm, PatientForm
 
 
 @blueprint.route('/index')
@@ -68,10 +68,40 @@ def infirmiere():
     return render_template('pages/infirmiere.html')
 
 
-@blueprint.route('/patients')
+def generate_patient_code(nom, prenom, date_naissance):
+    """ Génère un code unique basé sur les premières lettres du nom et prénom + date de naissance """
+    return f"{nom[:2].upper()}{prenom[:2].upper()}{date_naissance.strftime('%d%m%Y')}"
+
+
+@blueprint.route('/patients', methods=['GET', 'POST'])
 @login_required
 def patients():
-    return render_template('pages/patients.html')
+    form = PatientForm()
+
+    if request.method == 'POST' and form.validate():
+        # Générer automatiquement le code patient
+        code_patient = generate_patient_code(form.nom.data, form.prenom.data, form.date_naissance.data)
+
+        new_patient = Patients(
+            code_patient=code_patient,
+            nom=form.nom.data,
+            prenom=form.prenom.data,
+            date_naissance=form.date_naissance.data,
+            sexe=form.sexe.data,
+            adresse=form.adresse.data,
+            telephone=form.telephone.data,
+            email=form.email.data,
+            groupe_sanguin=form.groupe_sanguin.data,
+            historique_medical=form.historique_medical.data
+        )
+
+        db.session.add(new_patient)
+        db.session.commit()
+        flash(f"Patient enregistré avec succès. Code: {code_patient}", "success")
+        return redirect(url_for('home_blueprint.patients'))
+
+    patients_list = Patients.query.all()
+    return render_template('pages/patients.html', form=form, patients=patients_list)
 
 
 @blueprint.route('/accounts/password-reset/')
