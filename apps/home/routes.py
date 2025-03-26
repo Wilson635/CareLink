@@ -23,6 +23,10 @@ def index():
 @login_required
 def chambres():
     form = RoomForm(request.form)
+    # Récupérer les spécialités depuis la base de données
+    form.speciality.choices = [(s.id, s.name) for s in Speciality.query.all()]
+    #form.speciality.choices = [("", "-- Sélectionner une spécialité --")] + [(s.id, s.name) for s in Speciality.query.all()]
+
 
     if request.method == 'POST' and form.validate():
         new_room = Chambres(

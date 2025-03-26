@@ -16,24 +16,28 @@ class RoomForm(FlaskForm):
                           id='number_create',
                           validators=[DataRequired()])
 
-    speciality = StringField('Specialité de chambre',
+    speciality = SelectField('Spécialité de chambre',
                              id='speciality_create',
+                             choices=[],  # La liste sera remplie dynamiquement
+                             coerce=int,  # Convertir l'ID en entier
                              validators=[DataRequired()])
 
     description = StringField('Description de chambre',
                               id='description_create',
                               validators=[DataRequired()])
 
-    type = StringField('Type de chambre',
+    type = SelectField('Type de chambre',
                        id='type_create',
+                       choices=[('VIP', 'VIP'), ('Standard', 'Standard'), ('Privée', 'Privée')],
                        validators=[DataRequired()])
 
     capacity = StringField('Capacité de la chambre',
                            id='capacity_create',
                            validators=[DataRequired()])
 
-    etat = StringField('Etat de la chambre',
+    etat = SelectField('Etat de la chambre',
                        id='etat_create',
+                       choices=[('Disponible', 'Disponible'), ('Occupée', 'Occupée'), ('Maintenance', 'Maintenance')],
                        validators=[DataRequired()])
 
 
