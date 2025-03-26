@@ -17,6 +17,10 @@ class RoomForm(FlaskForm):
                              id='speciality_create',
                              validators=[DataRequired()])
 
+    description = StringField('Description de chambre',
+                             id='description_create',
+                             validators=[DataRequired()])
+
     type = StringField('Type de chambre',
                        id='type_create',
                        validators=[DataRequired()])

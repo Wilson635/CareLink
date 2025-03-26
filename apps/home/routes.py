@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 from datetime import datetime
 
 from apps import db
-from apps.authentication.models import Chambres
+from apps.authentication.models import Chambres, Speciality
 from apps.home import blueprint
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
@@ -27,6 +27,7 @@ def chambres():
     if request.method == 'POST' and form.validate():
         new_room = Chambres(
             name=form.numbers.data,
+            description=form.description.data,
             speciality_id=form.speciality.data,
             type=form.type.data,
             capacity=form.capacity.data,
@@ -36,7 +37,7 @@ def chambres():
         db.session.add(new_room)
         db.session.commit()
         flash("Chambre enregistrée avec succès.", "success")
-        return redirect(url_for('blueprint.chambres'))
+        return redirect(url_for('home_blueprint.chambres'))
 
     chambres_list = Chambres.query.all()
     return render_template('pages/chambres.html', form=form, chambres=chambres_list)

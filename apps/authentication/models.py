@@ -44,7 +44,7 @@ class Speciality(db.Model):
     name = db.Column(db.String(64), unique=True)
     description = db.Column(db.String(64), unique=False)
     category = db.Column(
-        db.Enum('Médecine', 'Chirugie', 'Pédiatrie et Gynécologie', 'Urgences et Soins Intensifs', 'Médico-Technique',
+        db.Enum('Médecine', 'Chirurgie', 'Pédiatrie et Gynécologie', 'Urgences et Soins Intensifs', 'Médico-Technique',
                 'Psychiatrie et Rééducation'), unique=False)
     date_creation = db.Column(db.DateTime, unique=False)
 
