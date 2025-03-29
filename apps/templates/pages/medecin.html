@@ -3,38 +3,129 @@
 {% block title %} Médecins {% endblock title %}
 
 {% block content %}
-  <!-- [ Main Content ] start -->
-  <div class="pc-container">
-    <div class="pc-content">
-      <!-- [ breadcrumb ] start -->
-      <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Nos Médecins</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page">Médecins</li>
-              </ul>
+    <div class="pc-container">
+        <div class="pc-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Nos Médecins</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Médecins</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- [ breadcrumb ] end -->
 
+            <div class="row">
+                <div class="col-xl-4 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col">
+                                    <h4>Enregistrer un médecin</h4>
+                                </div>
+                            </div>
+                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}  <!-- CSRF Token -->
 
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-sm-12">
-          Médecins page
+                                <div class="form-floating mb-3">
+                                    {{ form.nom(placeholder="Nom du médecin", class="form-control") }}
+                                    <label>Nom</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.prenom(placeholder="Prénom du médecin", class="form-control") }}
+                                    <label>Prénom</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.specialite(class="form-select") }}
+                                    <label>Spécialité</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.telephone(placeholder="Numéro de téléphone", class="form-control") }}
+                                    <label>Téléphone</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.email(placeholder="Adresse email", class="form-control") }}
+                                    <label>Email</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.image(class="form-control") }}
+                                    <label>Image (URL)</label>
+                                </div>
+
+                                <div class="d-grid mt-4">
+                                    <button type="submit" class="btn btn-secondary p-2">
+                                        Enregistrer le médecin
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-8 col-md-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Médecins</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table card-header">
+                                        <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Prénom</th>
+                                            <th>Spécialité</th>
+                                            <th>Téléphone</th>
+                                            <th>Email</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for medecin in medecins %}
+                                            <tr>
+                                                <td>{{ medecin.nom }}</td>
+                                                <td>{{ medecin.prenom }}</td>
+                                                <td>{{ medecin.specialite.name }}</td>
+                                                <td>{{ medecin.telephone }}</td>
+                                                <td>{{ medecin.email }}</td>
+                                                <td>
+                                                    {% if medecin.image %}
+                                                        <img src="{{ url_for('static', filename='/uploads/' + medecin.image) }}"
+                                                             alt="Photo" width="50" height="50"
+                                                             class="rounded-circle cover-img">
+                                                    {% else %}
+                                                        N/A
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <form method="post" action="">
+                                                        <button type="submit" class="btn btn-danger btn-sm">Supprimer
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- [ sample-page ] end -->
-      </div>
-      <!-- [ Main Content ] end -->
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
 {% endblock content %}

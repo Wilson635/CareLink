@@ -2,15 +2,18 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
+import os
 from datetime import datetime
 
+from werkzeug.utils import secure_filename
+
 from apps import db
-from apps.authentication.models import Chambres, Speciality, Patients
+from apps.authentication.models import Chambres, Speciality, Patients, Medecin
 from apps.home import blueprint
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-from apps.home.forms import RoomForm, PatientForm
+from apps.home.forms import RoomForm, PatientForm, MedecinForm
 
 
 @blueprint.route('/index')
@@ -60,10 +63,46 @@ def consultation():
     return render_template('pages/consultation.html')
 
 
-@blueprint.route('/medecin')
+import os
+
+@blueprint.route('/medecins', methods=['GET', 'POST'])
 @login_required
 def medecin():
-    return render_template('pages/medecin.html')
+    form = MedecinForm()
+    form.specialite.choices = [(s.id, s.name) for s in Speciality.query.all()]
+
+    if request.method == 'POST' and form.validate():
+        # Gestion de l'image
+        if form.image.data:
+            # Création du répertoire 'uploads' si nécessaire
+            upload_folder = os.path.join('apps/static', 'uploads')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            filename = secure_filename(form.image.data.filename)
+            filepath = os.path.join(upload_folder, filename)
+            form.image.data.save(filepath)
+            image_url = f"/{filepath}"  # URL pour afficher l'image
+        else:
+            image_url = None  # Aucune image fournie
+
+        # Création du médecin
+        new_medecin = Medecin(
+            nom=form.nom.data,
+            prenom=form.prenom.data,
+            specialite_id=form.specialite.data,
+            telephone=form.telephone.data,
+            email=form.email.data,
+            image=image_url  # Stocke l'URL dans la BD
+        )
+        db.session.add(new_medecin)
+        db.session.commit()
+        flash("Médecin enregistré avec succès.", "success")
+        return redirect(url_for('home_blueprint.medecin'))
+
+    medecins_list = Medecin.query.all()
+    return render_template('pages/medecin.html', form=form, medecins=medecins_list)
+
 
 
 @blueprint.route('/infirmière')

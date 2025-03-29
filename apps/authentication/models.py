@@ -102,6 +102,23 @@ class Patients(db.Model):
         return f"{self.nom} {self.prenom} ({self.code_patient})"
 
 
+class Medecin(db.Model):
+    __tablename__ = 'Medecins'
+
+    id_medecin = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nom = db.Column(db.String(100), nullable=False)
+    prenom = db.Column(db.String(100), nullable=False)
+    specialite_id = db.Column(db.Integer, db.ForeignKey('Speciality.id'), nullable=False)
+    telephone = db.Column(db.String(20), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    image = db.Column(db.String(255), nullable=True)
+
+    specialite = db.relationship('Speciality', backref=db.backref('medecins', lazy=True))
+
+    def __repr__(self):
+        return f"{self.nom} {self.prenom}"
+
+
 @login_manager.user_loader
 def user_loader(id):
     return Users.query.filter_by(id=id).first()

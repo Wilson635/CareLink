@@ -7,7 +7,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.fields.choices import SelectField
 from wtforms.fields.datetime import DateField
-from wtforms.fields.simple import TextAreaField
+from wtforms.fields.simple import TextAreaField, FileField
 from wtforms.validators import DataRequired, Email
 
 
@@ -69,3 +69,12 @@ class PatientForm(FlaskForm):
                                           ('O-', 'O-'), ('AB+', 'AB+'), ('AB-', 'AB-')])
     historique_medical = TextAreaField('Historique Médical',
                                        id='historique_medical')
+
+
+class MedecinForm(FlaskForm):
+    nom = StringField('Nom', id='nom', validators=[DataRequired()])
+    prenom = StringField('Prénom', id='prenom', validators=[DataRequired()])
+    specialite = SelectField('Spécialité', id='specialite', coerce=int, validators=[DataRequired()])
+    telephone = StringField('Téléphone', id='telephone', validators=[DataRequired()])
+    email = StringField('Email', id='email', validators=[DataRequired(), Email()])
+    image = FileField('Image', id='image')  # Utilisation de FileField pour l'upload de l'image
