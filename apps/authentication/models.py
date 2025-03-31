@@ -119,6 +119,91 @@ class Medecin(db.Model):
         return f"{self.nom} {self.prenom}"
 
 
+class Consultation(db.Model):
+    __tablename__ = 'Consultations'
+
+    id_consultation = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date_consultation = db.Column(db.DateTime, nullable=False)
+    medecin_id = db.Column(db.Integer, db.ForeignKey('Medecins.id_medecin'), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('Patients.id_patient'), nullable=False)
+    observations = db.Column(db.Text, nullable=True)
+    ordonnance = db.Column(db.Text, nullable=True)
+
+    medecin = db.relationship('Medecin', backref=db.backref('consultations', lazy=True))
+    patient = db.relationship('Patients', backref=db.backref('consultations', lazy=True))
+
+    def __repr__(self):
+        return f"Consultation {self.id_consultation} - {self.patient.nom} {self.patient.prenom}"
+
+
+class Hospitalisation(db.Model):
+    __tablename__ = 'Hospitalisations'
+
+    id_hospitalisation = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date_entree = db.Column(db.DateTime, nullable=False)
+    date_sortie = db.Column(db.DateTime, nullable=True)
+    chambre_id = db.Column(db.Integer, db.ForeignKey('Chambres.id'), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('Patients.id_patient'), nullable=False)
+    medecin_id = db.Column(db.Integer, db.ForeignKey('Medecins.id_medecin'), nullable=False)
+    motif = db.Column(db.Text, nullable=True)
+
+    chambre = db.relationship('Chambres', backref=db.backref('hospitalisations', lazy=True))
+    patient = db.relationship('Patients', backref=db.backref('hospitalisations', lazy=True))
+    medecin = db.relationship('Medecin', backref=db.backref('hospitalisations', lazy=True))
+
+    def __repr__(self):
+        return f"Hospitalisation {self.id_hospitalisation} - {self.patient.nom} {self.patient.prenom}"
+
+
+class Medicaments(db.Model):
+    __tablename__ = 'Medicaments'
+
+    id_medicament = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nom_medicament = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    stock = db.Column(db.Integer, nullable=False)
+    prix = db.Column(db.Float, nullable=False)
+    date_creation = db.Column(db.DateTime, nullable=False)
+
+    def __repr__(self):
+        return f"{self.nom_medicament}"
+
+
+class Traitements(db.Model):
+    __tablename__ = 'Traitements'
+
+    id_traitement = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    medicament_id = db.Column(db.Integer, db.ForeignKey('Medicaments.id_medicament'), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('Patients.id_patient'), nullable=False)
+    consultation_id = db.Column(db.Integer, db.ForeignKey('Consultations.id_consultation'), nullable=False)
+    posologie = db.Column(db.String(100), nullable=False)
+    duree = db.Column(db.Integer, nullable=False)
+
+    patient = db.relationship('Patients', backref=db.backref('traitements', lazy=True))
+    medicament = db.relationship('Medicaments', backref=db.backref('traitements', lazy=True))
+    consultation = db.relationship('Consultation', backref=db.backref('traitements', lazy=True))
+
+    def __repr__(self):
+        return f"Traitement {self.id_traitement} - {self.medicament.nom_medicament}"
+
+
+class Rapports(db.Model):
+    __tablename__ = 'Rapports'
+
+    id_rapport = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date_rapport = db.Column(db.DateTime, nullable=False)
+    medecin_id = db.Column(db.Integer, db.ForeignKey('Medecins.id_medecin'), nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('Patients.id_patient'), nullable=False)
+    contenu = db.Column(db.Text, nullable=True)
+
+    medecin = db.relationship('Medecin', backref=db.backref('rapports', lazy=True))
+    patient = db.relationship('Patients', backref=db.backref('rapports', lazy=True))
+
+    def __repr__(self):
+        return f"Rapport {self.id_rapport} - {self.patient.nom} {self.patient.prenom}"
+
+
+
 @login_manager.user_loader
 def user_loader(id):
     return Users.query.filter_by(id=id).first()

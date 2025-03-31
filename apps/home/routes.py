@@ -28,8 +28,7 @@ def chambres():
     form = RoomForm(request.form)
     # Récupérer les spécialités depuis la base de données
     form.speciality.choices = [(s.id, s.name) for s in Speciality.query.all()]
-    #form.speciality.choices = [("", "-- Sélectionner une spécialité --")] + [(s.id, s.name) for s in Speciality.query.all()]
-
+    # form.speciality.choices = [("", "-- Sélectionner une spécialité --")] + [(s.id, s.name) for s in Speciality.query.all()]
 
     if request.method == 'POST' and form.validate():
         new_room = Chambres(
@@ -50,7 +49,6 @@ def chambres():
     return render_template('pages/chambres.html', form=form, chambres=chambres_list)
 
 
-
 @blueprint.route('/hospitalisation')
 @login_required
 def hospitalisation():
@@ -65,6 +63,7 @@ def consultation():
 
 import os
 
+
 @blueprint.route('/medecins', methods=['GET', 'POST'])
 @login_required
 def medecin():
@@ -75,7 +74,7 @@ def medecin():
         # Gestion de l'image
         if form.image.data:
             # Création du répertoire 'uploads' si nécessaire
-            upload_folder = os.path.join('apps/static', 'uploads')
+            upload_folder = os.path.join('apps\static', 'uploads')
             if not os.path.exists(upload_folder):
                 os.makedirs(upload_folder)
 
@@ -103,6 +102,14 @@ def medecin():
     medecins_list = Medecin.query.all()
     return render_template('pages/medecin.html', form=form, medecins=medecins_list)
 
+
+@blueprint.route('/medecins/delete/<int:id_medecin>', methods=['POST'])
+def delete_medecin(id_medecin):
+    medecin = Medecin.query.get_or_404(id_medecin)
+    db.session.delete(medecin)
+    db.session.commit()
+    flash("Médecin supprimé avec succès.", "success")
+    return redirect(url_for('home_blueprint.medecin'))
 
 
 @blueprint.route('/infirmière')
@@ -145,6 +152,15 @@ def patients():
 
     patients_list = Patients.query.all()
     return render_template('pages/patients.html', form=form, patients=patients_list)
+
+
+@blueprint.route('/patients/delete/<int:id_patient>', methods=['POST'])
+def delete_patient(id_patient):
+    patient = Patients.query.get_or_404(id_patient)
+    db.session.delete(patient)
+    db.session.commit()
+    flash("Patient supprimé avec succès.", "success")
+    return redirect(url_for('home_blueprint.patients'))
 
 
 @blueprint.route('/accounts/password-reset/')

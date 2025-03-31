@@ -104,14 +104,13 @@
                                                 <td>
                                                     {% if medecin.image %}
                                                         <img src="{{ url_for('static', filename='/uploads/' + medecin.image) }}"
-                                                             alt="Photo" width="50" height="50"
-                                                             class="rounded-circle cover-img">
+                                                             alt="Photo">
                                                     {% else %}
                                                         N/A
                                                     {% endif %}
                                                 </td>
                                                 <td>
-                                                    <form method="post" action="">
+                                                    <form method="post" action="{{ url_for('home_blueprint.delete_medecin', id_medecin=medecin.id_medecin) }}">
                                                         <button type="submit" class="btn btn-danger btn-sm">Supprimer
                                                         </button>
                                                     </form>
