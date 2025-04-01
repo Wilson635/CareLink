@@ -27,12 +27,107 @@
 
       <!-- [ Main Content ] start -->
       <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-sm-12">
-          Hospitalisations Page
+            <div class="col-xl-4 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-3 align-items-center">
+                            <div class="col">
+                                <h4>Enregistrer une hospitalisation</h4>
+                            </div>
+                        </div>
+                        <form role="form" method="post" action="">
+                            {{ form.hidden_tag() }}  <!-- CSRF Token -->
+
+                            <div class="form-floating mb-3">
+                                {{ form.patient(placeholder="Choisissez parmi nos patients", class="form-select") }}
+                                <label for="floatingInput">Nos patients</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.chambre(placeholder="Choisissez parmi nos chambres", class="form-select") }}
+                                <label for="floatingInput">Nos chambres</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.medecin(placeholder="Choisissez parmi nos médecins", class="form-select") }}
+                                <label for="floatingInput">Nos médecins</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.date_entree(placeholder="Date d'entrée", class="form-control",type="date") }}
+                                <label for="floatingInput">Date d'entrée</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.date_sortie(placeholder="Date de sortie", class="form-control",type="date") }}
+                                <label for="floatingInput">Date de sortie</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.motif(placeholder="Motif d'hospitalisation", class="form-control") }}
+                                <label for="floatingInput">Motif d'hospitalisation</label>
+                            </div>
+
+                            <div class="d-grid mt-4">
+                                <button type="submit" name="register" class="btn btn-secondary p-2">
+                                    Enregistrer l' hospitalisation
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8 col-md-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Hospitalisations</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="">
+                                    <table class="table card-header">
+                                        <thead>
+                                            <tr>
+                                                <th>Patients</th>
+                                                <th>Chambres</th>
+                                                <th>Spécialité</th>
+                                                <th>Type</th>
+                                                <th>Date d'entrée</th>
+                                                <th>Date de sortie</th>
+                                                <th>Medecin</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for hospitalisation in hospitalisations %}
+                                                <tr>
+                                                    <td>{{ hospitalisation.patient.nom }} {{ hospitalisation.patient.prenom }}</td>
+                                                    <td>{{ hospitalisation.chambre.name }}</td>
+                                                    <td>{{ hospitalisation.chambre.speciality.name }}</td>
+                                                    <td>{{ hospitalisation.chambre.type }}</td>
+                                                    <td>{{ hospitalisation.date_entree.strftime('%d/%m/%Y') }}</td>
+                                                    <td>{{ hospitalisation.date_sortie.strftime('%d/%m/%Y') }}</td>
+                                                    <td>{{ hospitalisation.medecin.nom }} {{ hospitalisation.medecin.prenom }}</td>
+                                                    <td>
+                                                        <a href="{{ url_for('home_blueprint.delete_hospitalisation', id_hospitalisation=hospitalisation.id_hospitalisation) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                                        <a href="{{ url_for('home_blueprint.edit_hospitalisation', id_hospitalisation=hospitalisation.id_hospitalisation) }}" class="btn btn-primary btn-sm">Modifier</a>
+                                                        <a href="{{ url_for('home_blueprint.show_hospitalisation', id_hospitalisation=hospitalisation.id_hospitalisation) }}" class="btn btn-info btn-sm">Détails</a>
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <!-- [ sample-page ] end -->
-      </div>
       <!-- [ Main Content ] end -->
     </div>
   </div>

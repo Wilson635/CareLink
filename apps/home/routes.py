@@ -8,12 +8,12 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 
 from apps import db
-from apps.authentication.models import Chambres, Speciality, Patients, Medecin
+from apps.authentication.models import Chambres, Speciality, Patients, Medecin, Hospitalisation
 from apps.home import blueprint
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-from apps.home.forms import RoomForm, PatientForm, MedecinForm
+from apps.home.forms import RoomForm, PatientForm, MedecinForm, HospitalisationForm
 
 
 @blueprint.route('/index')
@@ -49,11 +49,75 @@ def chambres():
     return render_template('pages/chambres.html', form=form, chambres=chambres_list)
 
 
-@blueprint.route('/hospitalisation')
+@blueprint.route('/hospitalisation', methods=['GET', 'POST'])
 @login_required
 def hospitalisation():
-    return render_template('pages/hospitalisation.html')
+    form = HospitalisationForm()
+    form.patient.choices = [(p.id_patient, f"{p.nom} {p.prenom}") for p in Patients.query.all()]
+    form.medecin.choices = [(m.id_medecin, f"{m.nom} {m.prenom}") for m in Medecin.query.all()]
+    form.chambre.choices = [(c.id, c.name) for c in Chambres.query.all()]
 
+    if request.method == 'POST' and form.validate():
+        # Traitement de l'hospitalisation ici
+
+        new_hospitalisation = Hospitalisation(
+            patient_id=form.patient.data,
+            medecin_id=form.medecin.data,
+            chambre_id=form.chambre.data,
+            date_entree=form.date_entree.data,
+            date_sortie=form.date_sortie.data if form.date_sortie.data else None,
+            motif=form.motif.data
+        )
+        db.session.add(new_hospitalisation)
+        db.session.commit()
+        # Envoi d'un message flash pour indiquer le succès de l'opération
+        flash("Hospitalisation enregistrée avec succès.", "success")
+
+        # Redirection vers la page d'hospitalisation
+        return redirect(url_for('home_blueprint.hospitalisation'))
+
+    # Récupération de la liste des hospitalisations
+    hospitalisations_list = Hospitalisation.query.all()
+    return render_template('pages/hospitalisation.html', form=form, hospitalisations=hospitalisations_list)
+
+
+@blueprint.route('/hospitalisation/delete/<int:id_hospitalisation>', methods=['POST'])
+def delete_hospitalisation(id_hospitalisation):
+    hospitalisation = Hospitalisation.query.get_or_404(id_hospitalisation)
+    db.session.delete(hospitalisation)
+    db.session.commit()
+    flash("Hospitalisation supprimée avec succès.", "success")
+    return redirect(url_for('home_blueprint.hospitalisation'))
+
+@blueprint.route('/hospitalisation/edit/<int:id_hospitalisation>', methods=['GET', 'POST'])
+@login_required
+def edit_hospitalisation(id_hospitalisation):
+    form = HospitalisationForm()
+    form.patient.choices = [(p.id_patient, f"{p.nom} {p.prenom}") for p in Patients.query.all()]
+    form.medecin.choices = [(m.id_medecin, f"{m.nom} {m.prenom}") for m in Medecin.query.all()]
+    form.chambre.choices = [(c.id, c.name) for c in Chambres.query.all()]
+
+    hospitalisation = Hospitalisation.query.get_or_404(id_hospitalisation)
+
+    if request.method == 'POST' and form.validate():
+        hospitalisation.patient_id = form.patient.data
+        hospitalisation.medecin_id = form.medecin.data
+        hospitalisation.chambre_id = form.chambre.data
+        hospitalisation.date_entree = form.date_entree.data
+        hospitalisation.date_sortie = form.date_sortie.data if form.date_sortie.data else None
+        hospitalisation.motif = form.motif.data
+
+        db.session.commit()
+        flash("Hospitalisation mise à jour avec succès.", "success")
+        return redirect(url_for('home_blueprint.hospitalisation'))
+
+    return render_template('pages/hospitalisation.html', form=form, hospitalisation=hospitalisation)
+
+@blueprint.route('/hospitalisation/show/<int:id_hospitalisation>', methods=['GET'])
+@login_required
+def show_hospitalisation(id_hospitalisation):
+    hospitalisation = Hospitalisation.query.get_or_404(id_hospitalisation)
+    return render_template('pages/hospitalisation.html', hospitalisation=hospitalisation)
 
 @blueprint.route('/consultation')
 @login_required
