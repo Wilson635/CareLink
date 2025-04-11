@@ -77,5 +77,5 @@ class ConsultationForm(FlaskForm):
     medecin = SelectField('Médecin', id='medecin', coerce=int, validators=[DataRequired()])
     date_consultation = DateField('Date de consultation', id='date_consultation', format='%Y-%m-%d',
                                    validators=[DataRequired()])
-    observations = TextAreaField('Motif', id='motif', validators=[DataRequired()]),
+    observations = TextAreaField('Observations', id='observation', validators=[DataRequired()])
     ordonnance = TextAreaField('Ordonnance', id='ordonnance', validators=[DataRequired()])

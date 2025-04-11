@@ -14,7 +14,7 @@ from apps.home import blueprint
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-from apps.home.forms import RoomForm, PatientForm, MedecinForm, HospitalisationForm, InfirmiereForm
+from apps.home.forms import RoomForm, PatientForm, MedecinForm, HospitalisationForm, InfirmiereForm, ConsultationForm
 
 
 @blueprint.route('/index')
@@ -123,6 +123,7 @@ def delete_hospitalisation(id_hospitalisation):
     flash("Hospitalisation supprimée avec succès.", "success")
     return redirect(url_for('home_blueprint.hospitalisation'))
 
+
 @blueprint.route('/hospitalisation/edit/<int:id_hospitalisation>', methods=['GET', 'POST'])
 @login_required
 def edit_hospitalisation(id_hospitalisation):
@@ -147,22 +148,59 @@ def edit_hospitalisation(id_hospitalisation):
 
     return render_template('pages/hospitalisation.html', form=form, hospitalisation=hospitalisation)
 
+
 @blueprint.route('/hospitalisation/show/<int:id_hospitalisation>', methods=['GET'])
 @login_required
 def show_hospitalisation(id_hospitalisation):
     hospitalisation = Hospitalisation.query.get_or_404(id_hospitalisation)
     return render_template('pages/hospitalisation.html', hospitalisation=hospitalisation)
 
-@blueprint.route('/consultation')
+
+@blueprint.route('/consultation', methods=['GET', 'POST'])
 @login_required
 def consultation():
-    return render_template('pages/consultation.html')
+    form = ConsultationForm()
+
+    form.patient.choices = [(p.id_patient, f"{p.nom} {p.prenom}") for p in Patients.query.all()]
+    form.medecin.choices = [(m.id_medecin, f"{m.nom} {m.prenom}") for m in Medecin.query.all()]
+
+    if request.method == 'POST' and form.validate():
+        new_consultation = Consultation(
+            patient_id=form.patient.data,
+            medecin_id=form.medecin.data,
+            date_consultation=form.date_consultation.data,
+            observations=form.observations.data,
+            ordonnance=form.ordonnance.data
+        )
+        db.session.add(new_consultation)
+        db.session.commit()
+        flash("Consultation enregistrée avec succès.", "success")
+        return redirect(url_for('home_blueprint.consultation'))
+
+    # Récupération de la liste des consultations
+    consultations_list = Consultation.query.all()
+    return render_template('pages/consultation.html', form=form, consultations=consultations_list)
+
+
+@blueprint.route('/consultation/delete/<int:id_consultation>', methods=['POST'])
+def delete_consultation(id_consultation):
+    consultation = Consultation.query.get_or_404(id_consultation)
+    db.session.delete(consultation)
+    db.session.commit()
+    flash("Consultation supprimée avec succès.", "success")
+    return redirect(url_for('home_blueprint.consultation'))
 
 
 @blueprint.route('/rendez-vous')
 @login_required
 def visit():
     return render_template('pages/visit.html')
+
+
+@blueprint.route('/messages')
+@login_required
+def messages():
+    return render_template('pages/messages.html')
 
 
 @blueprint.route('/medecins', methods=['GET', 'POST'])
@@ -249,6 +287,7 @@ def infirmiere():
 
     infirmieres_list = Infirmiere.query.all()
     return render_template('pages/infirmiere.html', form=form, infirmieres=infirmieres_list)
+
 
 @blueprint.route('/infirmière/delete/<int:id_infirmiere>', methods=['POST'])
 def delete_infirmiere(id_infirmiere):

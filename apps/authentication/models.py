@@ -221,6 +221,38 @@ class Rapports(db.Model):
         return f"Rapport {self.id_rapport} - {self.patient.nom} {self.patient.prenom}"
 
 
+class Messages(db.Model):
+    __tablename__ = 'Messages'
+
+    id_message = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date_message = db.Column(db.DateTime, nullable=False)
+    expediteur_id = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
+    destinataire_id = db.Column(db.Integer, db.ForeignKey('Users.id'), nullable=False)
+    contenu = db.Column(db.Text, nullable=True)
+
+    expediteur = db.relationship('Users', foreign_keys=[expediteur_id], backref=db.backref('Patients', lazy=True))
+    destinataire = db.relationship('Users', foreign_keys=[destinataire_id], backref=db.backref('Medecin', lazy=True))
+
+    def __repr__(self):
+        return f"Message {self.id_message} - {self.contenu}"
+
+
+class Visit(db.Model):
+    __tablename__ = 'Visits'
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, nullable=False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('Patients.id_patient'), nullable=False)
+    medecin_id = db.Column(db.Integer, db.ForeignKey('Medecins.id_medecin'), nullable=False)
+    motif = db.Column(db.Text, nullable=True)
+    statut = db.Column(db.Enum('Planifié', 'Confirmé', 'Annulé', 'Terminé'), nullable=False)
+
+    patient = db.relationship('Patients', backref=db.backref('visits', lazy=True))
+    medecin = db.relationship('Medecin', backref=db.backref('visits', lazy=True))
+
+    def __repr__(self):
+        return f"Visit {self.id} - {self.patient.nom} {self.patient.prenom}"
+
 
 @login_manager.user_loader
 def user_loader(id):
