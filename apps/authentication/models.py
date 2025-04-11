@@ -119,6 +119,24 @@ class Medecin(db.Model):
         return f"{self.nom} {self.prenom}"
 
 
+class Infirmiere(db.Model):
+    __tablename__ = 'Infirmieres'
+
+    id_infirmiere = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nom = db.Column(db.String(100), nullable=False)
+    prenom = db.Column(db.String(100), nullable=False)
+    telephone = db.Column(db.String(20), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    specialite_id = db.Column(db.Integer, db.ForeignKey('Speciality.id'), nullable=False)
+    image = db.Column(db.String(255), nullable=True)
+
+    specialite = db.relationship('Speciality', backref=db.backref('infirmieres', lazy=True))
+
+    def __repr__(self):
+        return f"{self.nom} {self.prenom}"
+
+
+
 class Consultation(db.Model):
     __tablename__ = 'Consultations'
 

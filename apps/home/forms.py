@@ -54,6 +54,15 @@ class MedecinForm(FlaskForm):
     image = FileField('Image', id='image')
 
 
+class InfirmiereForm(FlaskForm):
+    nom = StringField('Nom', id='nom', validators=[DataRequired()])
+    prenom = StringField('Prénom', id='prenom', validators=[DataRequired()])
+    telephone = StringField('Téléphone', id='telephone', validators=[DataRequired()])
+    email = StringField('Email', id='email', validators=[DataRequired(), Email()])
+    image = FileField('Image', id='image')
+    specialite = SelectField('Spécialité', id='specialite', coerce=int, validators=[DataRequired()])
+
+
 class HospitalisationForm(FlaskForm):
     patient = SelectField('Patient', id='patient', coerce=int, validators=[DataRequired()])
     medecin = SelectField('Médecin', id='medecin', coerce=int, validators=[DataRequired()])

@@ -3,38 +3,128 @@
 {% block title %} Infirmières {% endblock title %}
 
 {% block content %}
-  <!-- [ Main Content ] start -->
-  <div class="pc-container">
-    <div class="pc-content">
-      <!-- [ breadcrumb ] start -->
-      <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Nos Infirmières</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page">Infirmières</li>
-              </ul>
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pc-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Nos Infirmières</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Infirmières</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- [ breadcrumb ] end -->
+            <!-- [ breadcrumb ] end -->
 
 
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-sm-12">
-          Infirmières Page
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ sample-page ] start -->
+                <div class="col-xl-4 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col">
+                                    <h4>Enregistrer une infirmière</h4>
+                                </div>
+                            </div>
+                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}  <!-- CSRF Token -->
+
+                                <div class="form-floating mb-3">
+                                    {{ form.nom(placeholder="Nom de l'infirmière", class="form-control") }}
+                                    <label>Nom</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.prenom(placeholder="Prénom de l'infirmière", class="form-control") }}
+                                    <label>Prénom</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.specialite(class="form-select") }}
+                                    <label>Spécialité</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.telephone(placeholder="Numéro de téléphone", class="form-control") }}
+                                    <label>Téléphone</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.email(placeholder="Adresse email", class="form-control") }}
+                                    <label>Email</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.image(class="form-control") }}
+                                    <label>Image (URL)</label>
+                                </div>
+
+                                <div class="d-grid mt-4">
+                                    <button type="submit" class="btn btn-secondary p-2">
+                                        Enregistrer l'infirmière
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Infirmières</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Liste des infirmières disponibles.</p>
+                            <table class="table table-striped card-header">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Prénom</th>
+                                    <th scope="col">Téléphone</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Spécialité</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for infirmiere in infirmieres %}
+                                    <tr>
+                                        <td>{{ infirmiere.nom }}</td>
+                                        <td>{{ infirmiere.prenom }}</td>
+                                        <td>{{ infirmiere.telephone }}</td>
+                                        <td>{{ infirmiere.email }}</td>
+                                        <td>{{ infirmiere.specialite }}</td>
+                                        <td>
+                                            {% if infirmiere.image %}
+                                                <img src="{{ infirmiere.image }}" alt="Image de l'infirmière" style="width: 50px; height: 50px;">
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
+                                        <td>
+                                            <a href="{{ url_for('home_blueprint.delete_infirmiere', id_infirmiere=infirmiere.id_infirmiere) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ sample-page ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
         </div>
-        <!-- [ sample-page ] end -->
-      </div>
-      <!-- [ Main Content ] end -->
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
+    <!-- [ Main Content ] end -->
 {% endblock content %}

@@ -8,18 +8,52 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 
 from apps import db
-from apps.authentication.models import Chambres, Speciality, Patients, Medecin, Hospitalisation
+from apps.authentication.models import Chambres, Speciality, Patients, Medecin, Hospitalisation, Consultation, \
+    Infirmiere
 from apps.home import blueprint
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-from apps.home.forms import RoomForm, PatientForm, MedecinForm, HospitalisationForm
+from apps.home.forms import RoomForm, PatientForm, MedecinForm, HospitalisationForm, InfirmiereForm
 
 
 @blueprint.route('/index')
 @login_required
 def index():
-    return render_template('pages/index.html', segment='index')
+    # Count all patients
+    patients_count = Patients.query.count()
+    # Count all doctors
+    doctors_count = Medecin.query.count()
+    # Count all rooms
+    rooms_count = Chambres.query.count()
+    # Count all hospitalisations
+    hospitalisations_count = Hospitalisation.query.count()
+    # Count all specialties
+    specialties_count = Speciality.query.count()
+    # Count all hospitalisations by doctor
+    hospitalisations_by_doctor = db.session.query(Medecin, db.func.count(Hospitalisation.id_hospitalisation)).join(
+        Hospitalisation).group_by(Medecin).all()
+    # Count all hospitalisations by patient
+    hospitalisations_by_patient = db.session.query(Patients, db.func.count(Hospitalisation.id_hospitalisation)).join(
+        Hospitalisation).group_by(Patients).all()
+    # Count all hospitalisations by room
+    hospitalisations_by_room = db.session.query(Chambres, db.func.count(Hospitalisation.id_hospitalisation)).join(
+        Hospitalisation).group_by(Chambres).all()
+    # Count all Consultations
+    consultations_count = Consultation.query.count()
+    # Count all infirmieres
+    infirmieres_count = Infirmiere.query.count()
+    return render_template('pages/index.html', segment='index',
+                           patients_count=patients_count,
+                           doctors_count=doctors_count,
+                           rooms_count=rooms_count,
+                           hospitalisations_count=hospitalisations_count,
+                           specialties_count=specialties_count,
+                           consultations_count=consultations_count,
+                           infirmieres_count=infirmieres_count,
+                           hospitalisations_by_doctor=hospitalisations_by_doctor,
+                           hospitalisations_by_patient=hospitalisations_by_patient,
+                           hospitalisations_by_room=hospitalisations_by_room)
 
 
 @blueprint.route('/chambres', methods=['GET', 'POST'])
@@ -125,7 +159,10 @@ def consultation():
     return render_template('pages/consultation.html')
 
 
-import os
+@blueprint.route('/rendez-vous')
+@login_required
+def visit():
+    return render_template('pages/visit.html')
 
 
 @blueprint.route('/medecins', methods=['GET', 'POST'])
@@ -176,10 +213,50 @@ def delete_medecin(id_medecin):
     return redirect(url_for('home_blueprint.medecin'))
 
 
-@blueprint.route('/infirmière')
+@blueprint.route('/infirmière', methods=['GET', 'POST'])
 @login_required
 def infirmiere():
-    return render_template('pages/infirmiere.html')
+    form = InfirmiereForm()
+
+    form.specialite.choices = [(s.id, s.name) for s in Speciality.query.all()]
+    if request.method == 'POST' and form.validate():
+        # Gestion de l'image
+        if form.image.data:
+            # Création du répertoire 'uploads' si nécessaire
+            upload_folder = os.path.join('apps\static', 'uploads')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+
+            filename = secure_filename(form.image.data.filename)
+            filepath = os.path.join(upload_folder, filename)
+            form.image.data.save(filepath)
+            image_url = f"/{filepath}"
+        else:
+            image_url = None
+        # Création de l'infirmière
+        new_infirmiere = Infirmiere(
+            nom=form.nom.data,
+            prenom=form.prenom.data,
+            telephone=form.telephone.data,
+            email=form.email.data,
+            image=image_url,
+            specialite_id=form.specialite.data
+        )
+        db.session.add(new_infirmiere)
+        db.session.commit()
+        flash("Infirmière enregistrée avec succès.", "success")
+        return redirect(url_for('home_blueprint.infirmiere'))
+
+    infirmieres_list = Infirmiere.query.all()
+    return render_template('pages/infirmiere.html', form=form, infirmieres=infirmieres_list)
+
+@blueprint.route('/infirmière/delete/<int:id_infirmiere>', methods=['POST'])
+def delete_infirmiere(id_infirmiere):
+    infirmiere = Infirmiere.query.get_or_404(id_infirmiere)
+    db.session.delete(infirmiere)
+    db.session.commit()
+    flash("Infirmière supprimée avec succès.", "success")
+    return redirect(url_for('home_blueprint.infirmiere'))
 
 
 def generate_patient_code(nom, prenom, date_naissance):
