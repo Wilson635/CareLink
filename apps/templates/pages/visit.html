@@ -3,38 +3,127 @@
 {% block title %} Rendez-vous {% endblock title %}
 
 {% block content %}
-  <!-- [ Main Content ] start -->
-  <div class="pc-container">
-    <div class="pc-content">
-      <!-- [ breadcrumb ] start -->
-      <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Gestion des rendez-vous</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page">rendez-vous</li>
-              </ul>
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pc-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Gestion des rendez-vous</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page">rendez-vous</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- [ breadcrumb ] end -->
+            <!-- [ breadcrumb ] end -->
 
 
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-sm-12">
-          Visit Page
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ sample-page ] start -->
+                <div class="col-xl-4 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col">
+                                    <h4>Enregistrer une visite</h4>
+                                </div>
+                            </div>
+                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}  <!-- CSRF Token -->
+
+                                <div class="form-floating mb-3">
+                                    {{ form.patient(class="form-select") }}
+                                    <label>Patients</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.medecin(class="form-select") }}
+                                    <label>Medecins</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.date_visit(class="form-control", placeholder="Date de visite") }}
+                                    <label>Date de visite</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.motif(placeholder="Motif", class="form-control") }}
+                                    <label>Motif</label>
+                                </div>
+
+                                <div class="d-grid mt-4">
+                                    <button type="submit" class="btn btn-secondary p-2">
+                                        Enregistrer le rendez-vous
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-8 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col">
+                                    <h4>Liste des visites</h4>
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Médecin</th>
+                                    <th>Date de visite</th>
+                                    <th>Status</th>
+                                    <th>Motif</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for visit in visits %}
+                                    <tr>
+                                        <td>{{ visit.patient.nom }} {{ visit.patient.prenom }}</td>
+                                        <td>{{ visit.medecin.nom }} {{ visit.medecin.prenom }}</td>
+                                        <td>{{ visit.date }}</td>
+                                        <td>{{ visit.statut }}</td>
+                                        <td>{{ visit.motif }}</td>
+                                        <td>
+                                            {% if visit.statut == 'Planifié' %}
+                                                <a
+                                                        href="{{ url_for('home_blueprint.visit_accepted', id=visit.id) }}"
+                                                        class="btn btn-success btn-sm">Accepter
+                                                </a>
+                                                <a
+                                                        href="{{ url_for('home_blueprint.visit_canceled', id=visit.id) }}"
+                                                        class="btn btn-danger btn-sm"> Annuler
+                                                </a>
+                                            {% elif visit.statut == 'Confirmé' %}
+                                                <a
+                                                        href="{{ url_for('home_blueprint.visit_done', id=visit.id) }}"
+                                                        class="btn btn-primary btn-sm">Terminer
+                                                </a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ sample-page ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
         </div>
-        <!-- [ sample-page ] end -->
-      </div>
-      <!-- [ Main Content ] end -->
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
+    <!-- [ Main Content ] end -->
 {% endblock content %}

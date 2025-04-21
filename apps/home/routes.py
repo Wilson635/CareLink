@@ -9,12 +9,13 @@ from werkzeug.utils import secure_filename
 
 from apps import db
 from apps.authentication.models import Chambres, Speciality, Patients, Medecin, Hospitalisation, Consultation, \
-    Infirmiere
+    Infirmiere, Visit
 from apps.home import blueprint
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-from apps.home.forms import RoomForm, PatientForm, MedecinForm, HospitalisationForm, InfirmiereForm, ConsultationForm
+from apps.home.forms import RoomForm, PatientForm, MedecinForm, HospitalisationForm, InfirmiereForm, ConsultationForm, \
+    VisitForm
 
 
 @blueprint.route('/index')
@@ -43,6 +44,8 @@ def index():
     consultations_count = Consultation.query.count()
     # Count all infirmieres
     infirmieres_count = Infirmiere.query.count()
+    # Count all rendez-vous
+    visit_count = Visit.query.count()
     return render_template('pages/index.html', segment='index',
                            patients_count=patients_count,
                            doctors_count=doctors_count,
@@ -51,6 +54,7 @@ def index():
                            specialties_count=specialties_count,
                            consultations_count=consultations_count,
                            infirmieres_count=infirmieres_count,
+                           visit_count=visit_count,
                            hospitalisations_by_doctor=hospitalisations_by_doctor,
                            hospitalisations_by_patient=hospitalisations_by_patient,
                            hospitalisations_by_room=hospitalisations_by_room)
@@ -115,7 +119,7 @@ def hospitalisation():
     return render_template('pages/hospitalisation.html', form=form, hospitalisations=hospitalisations_list)
 
 
-@blueprint.route('/hospitalisation/delete/<int:id_hospitalisation>', methods=['POST'])
+@blueprint.route('/hospitalisation/delete/<int:id_hospitalisation>', methods=['GET', 'POST'])
 def delete_hospitalisation(id_hospitalisation):
     hospitalisation = Hospitalisation.query.get_or_404(id_hospitalisation)
     db.session.delete(hospitalisation)
@@ -182,7 +186,7 @@ def consultation():
     return render_template('pages/consultation.html', form=form, consultations=consultations_list)
 
 
-@blueprint.route('/consultation/delete/<int:id_consultation>', methods=['POST'])
+@blueprint.route('/consultation/delete/<int:id_consultation>', methods=['POST', 'GET'])
 def delete_consultation(id_consultation):
     consultation = Consultation.query.get_or_404(id_consultation)
     db.session.delete(consultation)
@@ -191,10 +195,59 @@ def delete_consultation(id_consultation):
     return redirect(url_for('home_blueprint.consultation'))
 
 
-@blueprint.route('/rendez-vous')
+@blueprint.route('/rendez-vous', methods=['GET', 'POST'])
 @login_required
 def visit():
-    return render_template('pages/visit.html')
+    form = VisitForm()
+    form.patient.choices = [(p.id_patient, f"{p.nom} {p.prenom}") for p in Patients.query.all()]
+    form.medecin.choices = [(m.id_medecin, f"{m.nom} {m.prenom}") for m in Medecin.query.all()]
+
+    if request.method == 'POST' and form.validate():
+        new_visit = Visit(
+            patient_id=form.patient.data,
+            medecin_id=form.medecin.data,
+            date=form.date_visit.data,
+            motif=form.motif.data,
+            statut='Planifié'
+        )
+        db.session.add(new_visit)
+        db.session.commit()
+        flash('Rendez-vous enrégistré avec succès')
+        return redirect(url_for('home_blueprint.visit'))
+
+    # Recuperer la liste des rendez-vous
+    visit_list = Visit.query.all()
+    return render_template('pages/visit.html', form=form, visits=visit_list)
+
+
+@blueprint.route('/rendez-vous/accept/<int:id>', methods=['GET', 'POST'])
+@login_required
+def visit_accepted(id):
+    visit = Visit.query.get_or_404(id)
+    visit.statut = 'Confirmé'  # ou 'Confirmé', selon ta logique métier
+    db.session.commit()
+    flash('Rendez-vous accepté avec succès.')
+    return redirect(url_for('home_blueprint.visit'))
+
+
+@blueprint.route('/rendez-vous/cancel/<int:id>', methods=['GET', 'POST'])
+@login_required
+def visit_canceled(id):
+    visit = Visit.query.get_or_404(id)
+    visit.statut = 'Annulé'
+    db.session.commit()
+    flash('Rendez-vous annulé.')
+    return redirect(url_for('home_blueprint.visit'))
+
+
+@blueprint.route('/rendez-vous/done/<int:id>', methods=['GET', 'POST'])
+@login_required
+def visit_done(id):
+    visit = Visit.query.get_or_404(id)
+    visit.statut = 'Terminé'
+    db.session.commit()
+    flash('Rendez-vous terminé.')
+    return redirect(url_for('home_blueprint.visit'))
 
 
 @blueprint.route('/messages')

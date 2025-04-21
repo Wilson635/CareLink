@@ -79,3 +79,11 @@ class ConsultationForm(FlaskForm):
                                    validators=[DataRequired()])
     observations = TextAreaField('Observations', id='observation', validators=[DataRequired()])
     ordonnance = TextAreaField('Ordonnance', id='ordonnance', validators=[DataRequired()])
+
+
+class VisitForm(FlaskForm):
+    patient = SelectField('Patient', id='patient', coerce=int, validators=[DataRequired()])
+    medecin = SelectField('Médecin', id='medecin', coerce=int, validators=[DataRequired()])
+    date_visit= DateField('Date de visite', id='date_visit', format='%Y-%m-%d',
+                                 validators=[DataRequired()])
+    motif = TextAreaField('Motif', id='motif', validators=[DataRequired()])
