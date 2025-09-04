@@ -2,283 +2,250 @@
 
 {% block title %} Dashboard {% endblock title %}
 {% block content %}
-  <!-- [ Main Content ] start -->
-  <div class="pc-container">
-    <div class="pc-content">
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-          <!--
-        <div class="col-xl-4 col-md-6">
-          <div class="card bg-secondary-dark dashnum-card text-white overflow-hidden">
-            <span class="round small"></span>
-            <span class="round big"></span>
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <div class="avtar avtar-lg">
-                    <i class="text-white ti ti-credit-card"></i>
-                  </div>
-                </div>
-                <div class="col-auto">
-                  <div class="btn-group">
-                    <a
-                      type="button"
-                      class="avtar bg-secondary dropdown-toggle arrow-none"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i class="ti ti-dots"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><button class="dropdown-item" type="button">Import Card</button></li>
-                      <li><button class="dropdown-item" type="button">Export</button></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <span class="text-white d-block f-34 f-w-500 my-2">1350 <i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
-              <p class="mb-0 opacity-50">Total Pending Orders</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-md-6">
-          <div class="card bg-primary-dark dashnum-card text-white overflow-hidden">
-            <span class="round small"></span>
-            <span class="round big"></span>
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <div class="avtar avtar-lg">
-                    <i class="text-white ti ti-credit-card"></i>
-                  </div>
-                </div>
-                <div class="col-auto">
-                  <ul class="nav nav-pills justify-content-end mb-0" id="chart-tab-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                      <button
-                        class="nav-link text-white active"
-                        id="chart-tab-home-tab"
-                        data-bs-toggle="pill"
-                        data-bs-target="#chart-tab-home"
-                        type="button"
-                        role="tab"
-                        aria-controls="chart-tab-home"
-                        aria-selected="true"
-                        >Month</button
-                      >
-                    </li>
-                    <li class="nav-item" role="presentation">
-                      <button
-                        class="nav-link text-white"
-                        id="chart-tab-profile-tab"
-                        data-bs-toggle="pill"
-                        data-bs-target="#chart-tab-profile"
-                        type="button"
-                        role="tab"
-                        aria-controls="chart-tab-profile"
-                        aria-selected="false"
-                        >Year</button
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="tab-content" id="chart-tab-tabContent">
-                <div class="tab-pane show active" id="chart-tab-home" role="tabpanel" aria-labelledby="chart-tab-home-tab" tabindex="0">
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="text-white d-block f-34 f-w-500 my-2">$130<i class="ti ti-arrow-up-right-circle opacity-50"></i></span>
-                      <p class="mb-0 opacity-50">Total Earning</p>
-                    </div>
-                    <div class="col-6">
-                      <div id="tab-chart-1"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="chart-tab-profile" role="tabpanel" aria-labelledby="chart-tab-profile-tab" tabindex="0">
-                  <div class="row">
-                    <div class="col-6">
-                      <span class="text-white d-block f-34 f-w-500 my-2">$29961 <i class="ti ti-arrow-down-right-circle opacity-50"></i></span>
-                      <p class="mb-0 opacity-50">C/W Last Year</p>
-                    </div>
-                    <div class="col-6">
-                      <div id="tab-chart-2"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-md-12">
-          <div class="card bg-primary-dark dashnum-card dashnum-card-small text-white overflow-hidden">
-            <span class="round bg-primary small"></span>
-            <span class="round bg-primary big"></span>
-            <div class="card-body p-3">
-              <div class="d-flex align-items-center">
-                <div class="avtar avtar-lg">
-                  <i class="text-white ti ti-credit-card"></i>
-                </div>
-                <div class="ms-2">
-                  <h4 class="text-white mb-1">$203k <i class="ti ti-arrow-up-right-circle opacity-50"></i></h4>
-                  <p class="mb-0 opacity-50 text-sm">Net Profit</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card dashnum-card dashnum-card-small overflow-hidden">
-            <span class="round bg-warning small"></span>
-            <span class="round bg-warning big"></span>
-            <div class="card-body p-3">
-              <div class="d-flex align-items-center">
-                <div class="avtar avtar-lg bg-light-warning">
-                  <i class="text-warning ti ti-credit-card"></i>
-                </div>
-                <div class="ms-2">
-                  <h4 class="mb-1">$550K <i class="ti ti-arrow-up-right-circle opacity-50"></i></h4>
-                  <p class="mb-0 opacity-50 text-sm">Total Revenue</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pc-content">
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <!-- [ sample-page ] start -->
 
-        <div class="col-xl-8 col-md-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="row mb-3 align-items-center">
-                <div class="col">
-                  <small>Total Growth</small>
-                  <h3>$2,324.00</h3>
+                <div class="col-xl-4 col-md-12">
+                    <div class="card dashnum-card dashnum-card-small overflow-hidden">
+                        <span class="round bg-primary small"></span>
+                        <span class="round bg-primary big"></span>
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar avtar-lg bg-light-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="6" r="4" fill="currentColor"></circle>
+                                        <path fill="currentColor"
+                                              d="M18.095 15.031C17.67 15 17.149 15 16.5 15c-1.65 0-2.475 0-2.987.513C13 16.025 13 16.85 13 18.5c0 1.166 0 1.92.181 2.443Q12.605 21 12 21c-3.866 0-7-1.79-7-4s3.134-4 7-4c2.613 0 4.892.818 6.095 2.031"
+                                              opacity="0.5"></path>
+                                        <path fill="currentColor" fill-rule="evenodd"
+                                              d="M16.5 22c-1.65 0-2.475 0-2.987-.513C13 20.975 13 20.15 13 18.5s0-2.475.513-2.987C14.025 15 14.85 15 16.5 15s2.475 0 2.987.513C20 16.025 20 16.85 20 18.5s0 2.475-.513 2.987C18.975 22 18.15 22 16.5 22m.583-5.056a.583.583 0 1 0-1.166 0v.973h-.973a.583.583 0 1 0 0 1.166h.973v.973a.583.583 0 1 0 1.166 0v-.973h.973a.583.583 0 1 0 0-1.166h-.973z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <h4 class="mb-1"> {{ patients_count }}
+                                    </h4>
+                                    <p class="mb-0 opacity-50 text-sm">Patients</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card dashnum-card dashnum-card-small overflow-hidden">
+                        <span class="round bg-warning small"></span>
+                        <span class="round bg-warning big"></span>
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar avtar-lg bg-light-warning">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="currentColor" fill-rule="evenodd"
+                                              d="M2 5.25a.75.75 0 0 1 .75.75v9.25h19.893v.393l-.001.357v2a.75.75 0 1 1-1.5 0v-1.25H2.75V18a.75.75 0 0 1-1.5 0V6A.75.75 0 0 1 2 5.25"
+                                              clip-rule="evenodd"></path>
+                                        <path fill="currentColor"
+                                              d="M7 13.5a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5m15.362-1.651a5 5 0 0 0-3.068-3.068c-.802-.281-1.8-.281-3.794-.281h-.002c-.798 0-1.838 0-2.159.112a2 2 0 0 0-1.227 1.227C12 10.16 12 10.56 12 11.357v3.893h10.643c-.001-1.737-.02-2.654-.28-3.401"
+                                              opacity="0.5"></path>
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <h4 class="mb-1"> {{ rooms_count }}
+                                    </h4>
+                                    <p class="mb-0 opacity-50 text-sm">Chambres</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-auto">
-                  <select class="form-select p-r-35">
-                    <option>Today</option>
-                    <option selected>This Month</option>
-                    <option>This Year</option>
-                  </select>
+                <div class="col-xl-4 col-md-12">
+                    <div class="card dashnum-card dashnum-card-small overflow-hidden">
+                        <span class="round bg-info small"></span>
+                        <span class="round bg-info big"></span>
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar avtar-lg bg-light-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path
+                                                fill="currentColor"
+                                                d="M14 4h-4C6.229 4 4.343 4 3.172 5.172S2 8.229 2 12s0 5.657 1.172 6.828S6.229 20 10 20h4c3.771 0 5.657 0 6.828-1.172S22 15.771 22 12s0-5.657-1.172-6.828S17.771 4 14 4"
+                                                opacity="0.5"/>
+                                        <path fill="currentColor"
+                                              d="M13.25 9a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1-.75-.75m1 3a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75M9 11a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 6c4 0 4-.895 4-2s-1.79-2-4-2s-4 .895-4 2s0 2 4 2"/>
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <h4 class="mb-1"> {{ doctors_count }}
+                                    </h4>
+                                    <p class="mb-0 opacity-50 text-sm">Medecins</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card dashnum-card dashnum-card-small overflow-hidden">
+                        <span class="round bg-amazon small"></span>
+                        <span class="round bg-amazon big"></span>
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar avtar-lg bg-light-amazon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <circle
+                                                cx="11" cy="6" r="4" fill="currentColor"/>
+                                        <path fill="currentColor" fill-rule="evenodd"
+                                              d="M14.513 21.487C15.025 22 15.85 22 17.5 22s2.475 0 2.987-.513C21 20.975 21 20.15 21 18.5s0-2.475-.513-2.987C19.975 15 19.15 15 17.5 15s-2.475 0-2.987.513C14 16.025 14 16.85 14 18.5s0 2.475.513 2.987m2.014-1.51C15.824 19.474 15 18.883 15 17.86c0-1.13 1.375-1.931 2.5-.845c1.125-1.087 2.5-.285 2.5.845c0 1.023-.825 1.614-1.527 2.117l-.213.154c-.26.19-.51.369-.76.369s-.5-.18-.76-.37z"
+                                              clip-rule="evenodd"/>
+                                        <path
+                                                fill="currentColor"
+                                                d="M14.594 21.563a1 1 0 0 1-.081-.076C14 20.975 14 20.15 14 18.5s0-2.475.513-2.987C15.025 15 15.85 15 17.5 15h.43c-1.383-1.345-3.969-2.25-6.93-2.25c-4.418 0-8 2.015-8 4.5s0 4.5 8 4.5c1.443 0 2.625-.066 3.594-.187"
+                                                opacity="0.5"/>
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <h4 class="mb-1"> {{ infirmieres_count }}
+                                    </h4>
+                                    <p class="mb-0 opacity-50 text-sm">Infirmières</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div id="growthchart"></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-md-12">
-          <div class="card">
-            <div class="card-body">
-              <div class="row mb-3 align-items-center">
-                <div class="col">
-                  <h4>Popular Stocks</h4>
+                <div class="col-xl-4 col-md-12">
+                    <div class="card dashnum-card dashnum-card-small overflow-hidden">
+                        <span class="round bg-instagram small"></span>
+                        <span class="round bg-instagram big"></span>
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar avtar-lg bg-light-instagram">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path
+                                                fill="currentColor"
+                                                d="M2.346 11.25A6.3 6.3 0 0 1 2 9.26C2 3.35 7.5.663 12 5.5C16.5.663 22 3.349 22 9.26a6.3 6.3 0 0 1-.346 1.99h-3.13c-.546 0-1.03-.002-1.471.195c-.441.196-.765.557-1.13.963l-.075.084l-1.029 1.143a.25.25 0 0 1-.379-.007l-3.55-4.305c-.14-.17-.289-.35-.435-.485a1.24 1.24 0 0 0-.773-.353a1.24 1.24 0 0 0-.81.258c-.16.116-.33.278-.49.43l-1.53 1.456c-.471.45-.57.526-.672.567c-.103.042-.228.054-.879.054z"
+                                                opacity="0.5"/>
+                                        <path fill="currentColor"
+                                              d="M21.654 11.25h-3.13c-.546-.001-1.03-.002-1.472.194c-.44.197-.764.558-1.129.964l-.075.084l-1.029 1.143a.25.25 0 0 1-.38-.008l-3.55-4.304c-.14-.17-.29-.35-.435-.485a1.24 1.24 0 0 0-.773-.354a1.24 1.24 0 0 0-.81.26c-.161.115-.331.277-.49.428l-1.53 1.457c-.471.45-.57.526-.673.567s-.227.054-.878.054H2.346c1.036 3.105 4.191 6.144 6.615 8.12C10.294 20.458 10.96 21 12 21s1.706-.543 3.038-1.63c2.424-1.976 5.58-5.015 6.616-8.12"/>
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <h4 class="mb-1"> {{ hospitalisations_count }}
+                                    </h4>
+                                    <p class="mb-0 opacity-50 text-sm">Hospitalisations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card dashnum-card dashnum-card-small overflow-hidden">
+                        <span class="round bg-dropbox small"></span>
+                        <span class="round bg-dropbox big"></span>
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar avtar-lg bg-light-dropbox">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="9" r="7" fill="currentColor" opacity="0.5"/>
+                                        <path fill="currentColor"
+                                              d="m7.546 14.4l-.195.6l-.637 2.323c-.628 2.292-.942 3.438-.523 4.065c.147.22.344.396.573.513c.652.332 1.66-.193 3.675-1.243c.67-.35 1.006-.524 1.362-.562q.199-.021.398 0c.356.038.691.212 1.362.562c2.015 1.05 3.023 1.575 3.675 1.243c.229-.117.426-.293.573-.513c.42-.627.105-1.773-.523-4.065L16.649 15l-.195-.6c-1.21 1-2.762 1.6-4.454 1.6s-3.244-.6-4.454-1.6"/>
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <h4 class="mb-1"> {{ specialties_count }}
+                                    </h4>
+                                    <p class="mb-0 opacity-50 text-sm">Spécialités</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-auto"> </div>
-              </div>
-              <div class="rounded bg-light-secondary overflow-hidden mb-3">
-                <div class="px-3 pt-3">
-                  <div class="row mb-1 align-items-start">
-                    <div class="col">
-                      <h5 class="text-secondary mb-0">Bajaj Finery</h5>
-                      <small class="text-muted">10% Profit</small>
+                <div class="col-xl-4 col-md-12">
+                    <div class="card dashnum-card dashnum-card-small overflow-hidden">
+                        <span class="round bg-googleplus small"></span>
+                        <span class="round bg-googleplus big"></span>
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar avtar-lg bg-light-googleplus">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path
+                                                fill="currentColor"
+                                                d="M21 15.998v-6c0-2.828 0-4.242-.879-5.121C19.353 4.109 18.175 4.012 16 4H8c-2.175.012-3.353.109-4.121.877C3 5.756 3 7.17 3 9.998v6c0 2.829 0 4.243.879 5.122c.878.878 2.293.878 5.121.878h6c2.828 0 4.243 0 5.121-.878c.879-.88.879-2.293.879-5.122"
+                                                opacity="0.5"/>
+                                        <path fill="currentColor"
+                                              d="M8 3.5A1.5 1.5 0 0 1 9.5 2h5A1.5 1.5 0 0 1 16 3.5v1A1.5 1.5 0 0 1 14.5 6h-5A1.5 1.5 0 0 1 8 4.5z"/>
+                                        <path
+                                                fill="currentColor" fill-rule="evenodd"
+                                                d="M6.25 10.5A.75.75 0 0 1 7 9.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75M6.25 14a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75m-3.5 3.5a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5H7a.75.75 0 0 1-.75-.75m3.5 0a.75.75 0 0 1 .75-.75H17a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75"
+                                                clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <h4 class="mb-1"> {{ consultations_count }}
+                                    </h4>
+                                    <p class="mb-0 opacity-50 text-sm">Consultations</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                      <h4 class="mb-0">$1839.00</h4>
+                </div>
+                <div class="col-xl-4 col-md-12">
+                    <div class="card dashnum-card dashnum-card-small overflow-hidden">
+                        <span class="round bg-success small"></span>
+                        <span class="round bg-success big"></span>
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="avtar avtar-lg bg-light-success">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path
+                                                fill="currentColor" fill-rule="evenodd"
+                                                d="M1.25 3A.75.75 0 0 1 2 2.25h20a.75.75 0 0 1 0 1.5H2A.75.75 0 0 1 1.25 3"
+                                                clip-rule="evenodd"/>
+                                        <path fill="currentColor"
+                                              d="M4 3.75v9.527c0 1.34 0 2.01.268 2.601s.772 1.032 1.781 1.915l2 1.75c1.883 1.647 2.824 2.47 3.951 2.47s2.069-.823 3.951-2.47l2-1.75c1.008-.883 1.513-1.324 1.78-1.915c.269-.59.269-1.26.269-2.6V3.75z"
+                                              opacity="0.5"/>
+                                        <path fill="currentColor" fill-rule="evenodd"
+                                              d="M7.75 14a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75m0-5a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7A.75.75 0 0 1 7.75 9"
+                                              clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="ms-2">
+                                    <h4 class="mb-1"> {{ visit_count }}
+                                    </h4>
+                                    <p class="mb-0 opacity-50 text-sm">Rendez-vous</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row mb-3 align-items-center">
+                        <div class="col">
+                          <small>Total Growth</small>
+                          <h3>$2,324.00</h3>
+                        </div>
+                        <div class="col-auto">
+                          <select class="form-select p-r-35">
+                            <option>Today</option>
+                            <option selected>This Month</option>
+                            <option>This Year</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div id="growthchart"></div>
                     </div>
                   </div>
                 </div>
-                <div id="bajajchart"></div>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item px-0">
-                  <div class="row align-items-start">
-                    <div class="col">
-                      <h5 class="mb-0">Bajaj Finery</h5>
-                      <small class="text-success">10% Profit</small>
-                    </div>
-                    <div class="col-auto">
-                      <h4 class="mb-0"
-                        >$1839.00<span class="ms-2 align-top avtar avtar-xxs bg-light-success"
-                          ><i class="ti ti-chevron-up text-success"></i></span
-                      ></h4>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item px-0">
-                  <div class="row align-items-start">
-                    <div class="col">
-                      <h5 class="mb-0">TTML</h5>
-                      <small class="text-danger">10% Profit</small>
-                    </div>
-                    <div class="col-auto">
-                      <h4 class="mb-0"
-                        >$100.00<span class="ms-2 align-top avtar avtar-xxs bg-light-danger"
-                          ><i class="ti ti-chevron-down text-danger"></i></span
-                      ></h4>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item px-0">
-                  <div class="row align-items-start">
-                    <div class="col">
-                      <h5 class="mb-0">Reliance</h5>
-                      <small class="text-success">10% Profit</small>
-                    </div>
-                    <div class="col-auto">
-                      <h4 class="mb-0"
-                        >$200.00<span class="ms-2 align-top avtar avtar-xxs bg-light-success"
-                          ><i class="ti ti-chevron-up text-success"></i></span
-                      ></h4>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item px-0">
-                  <div class="row align-items-start">
-                    <div class="col">
-                      <h5 class="mb-0">TTML</h5>
-                      <small class="text-danger">10% Profit</small>
-                    </div>
-                    <div class="col-auto">
-                      <h4 class="mb-0"
-                        >$189.00<span class="ms-2 align-top avtar avtar-xxs bg-light-danger"
-                          ><i class="ti ti-chevron-down text-danger"></i></span
-                      ></h4>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item px-0">
-                  <div class="row align-items-start">
-                    <div class="col">
-                      <h5 class="mb-0">Stolon</h5>
-                      <small class="text-danger">10% Profit</small>
-                    </div>
-                    <div class="col-auto">
-                      <h4 class="mb-0"
-                        >$189.00<span class="ms-2 align-top avtar avtar-xxs bg-light-danger"
-                          ><i class="ti ti-chevron-down text-danger"></i></span
-                      ></h4>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <div class="text-center">
-                <a href="#!" class="b-b-primary text-primary">View all <i class="ti ti-chevron-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        -->
-          Dashboard Page
-        <!-- [ sample-page ] end -->
-      </div>
-      <!-- [ Main Content ] end -->
+                -->
+                <!-- [ sample-page ] end -->
+            </div>
+            <!-- [ Main Content ] end -->
+        </div>
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
+    <!-- [ Main Content ] end -->
 {% endblock content %}
 
 {% block extra_js %}
-  <!-- Apex Chart -->
-  <script src="{{ url_for('static', filename='assets/js/plugins/apexcharts.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='assets/js/pages/dashboard-default.js') }}"></script>
-  <!-- [Page Specific JS] end -->
+    <!-- Apex Chart -->
+    <script src="{{ url_for('static', filename='assets/js/plugins/apexcharts.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/pages/dashboard-default.js') }}"></script>
+    <!-- [Page Specific JS] end -->
 {% endblock extra_js %}

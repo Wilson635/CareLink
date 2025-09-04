@@ -73,3 +73,6 @@ config_dict = {
     'Production': ProductionConfig,
     'Debug': DebugConfig
 }
+
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}

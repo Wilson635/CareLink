@@ -3,38 +3,178 @@
 {% block title %} Hospitalisations {% endblock title %}
 
 {% block content %}
-  <!-- [ Main Content ] start -->
-  <div class="pc-container">
-    <div class="pc-content">
-      <!-- [ breadcrumb ] start -->
-      <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Nos Hospitalisations</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page">Hospitalisations</li>
-              </ul>
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pc-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Nos Hospitalisations</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Hospitalisations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- [ breadcrumb ] end -->
+            <!-- [ breadcrumb ] end -->
 
 
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-sm-12">
-          Hospitalisations Page
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="col-xl-4 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3 align-items-center">
+                                <div class="col">
+                                    <h4>Enregistrer une hospitalisation</h4>
+                                </div>
+                            </div>
+                            <form role="form" method="post" action="">
+                                {{ form.hidden_tag() }}  <!-- CSRF Token -->
+
+                                <div class="form-floating mb-3">
+                                    {{ form.patient(placeholder="Choisissez parmi nos patients", class="form-select") }}
+                                    <label for="floatingInput">Nos patients</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.chambre(placeholder="Choisissez parmi nos chambres", class="form-select") }}
+                                    <label for="floatingInput">Nos chambres</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.medecin(placeholder="Choisissez parmi nos médecins", class="form-select") }}
+                                    <label for="floatingInput">Nos médecins</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.date_entree(placeholder="Date d'entrée", class="form-control",type="date") }}
+                                    <label for="floatingInput">Date d'entrée</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.date_sortie(placeholder="Date de sortie", class="form-control",type="date") }}
+                                    <label for="floatingInput">Date de sortie</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    {{ form.motif(placeholder="Motif d'hospitalisation", class="form-control") }}
+                                    <label for="floatingInput">Motif d'hospitalisation</label>
+                                </div>
+
+                                <div class="d-grid mt-4">
+                                    <button type="submit" name="register" class="btn btn-secondary p-2">
+                                        Enregistrer l' hospitalisation
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-8 col-md-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Hospitalisations</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="">
+                                        <table class="table card-header">
+                                            <thead>
+                                            <tr>
+                                                <th>Patients</th>
+                                                <th>Chambres</th>
+                                                <th>Spécialité</th>
+                                                <th>Type</th>
+                                                <th>Date d'entrée</th>
+                                                <th>Date de sortie</th>
+                                                <th>Motif</th>
+                                                <th>Medecin</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for hospitalisation in hospitalisations %}
+                                                <tr>
+                                                    <td>{{ hospitalisation.patient.nom }} {{ hospitalisation.patient.prenom }}</td>
+                                                    <td>{{ hospitalisation.chambre.name }}</td>
+                                                    <td>{{ hospitalisation.chambre.speciality.name }}</td>
+                                                    <td>{{ hospitalisation.chambre.type }}</td>
+                                                    <td>{{ hospitalisation.date_entree.strftime('%d/%m/%Y') }}</td>
+                                                    <td>{{ hospitalisation.date_sortie.strftime('%d/%m/%Y') }}</td>
+                                                    <td>{{ hospitalisation.motif }}</td>
+                                                    <td>{{ hospitalisation.medecin.nom }} {{ hospitalisation.medecin.prenom }}</td>
+                                                    <td>
+                                                        <a href="{{ url_for('home_blueprint.delete_hospitalisation', id_hospitalisation=hospitalisation.id_hospitalisation) }}"
+                                                           class="btn btn-danger btn-sm"
+                                                           data-bs-toggle="tooltip" data-bs-placement="top"
+                                                           title="Supprimer">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                 height="24" viewBox="0 0 24 24">
+                                                                <path fill="currentColor"
+                                                                      d="M3 6.524c0-.395.327-.714.73-.714h4.788c.006-.842.098-1.995.932-2.793A3.68 3.68 0 0 1 12 2a3.68 3.68 0 0 1 2.55 1.017c.834.798.926 1.951.932 2.793h4.788c.403 0 .73.32.73.714a.72.72 0 0 1-.73.714H3.73A.72.72 0 0 1 3 6.524"/>
+                                                                <path fill="currentColor"
+                                                                      d="M11.596 22h.808c2.783 0 4.174 0 5.08-.886c.904-.886.996-2.339 1.181-5.245l.267-4.188c.1-1.577.15-2.366-.303-2.865c-.454-.5-1.22-.5-2.753-.5H8.124c-1.533 0-2.3 0-2.753.5s-.404 1.288-.303 2.865l.267 4.188c.185 2.906.277 4.36 1.182 5.245c.905.886 2.296.886 5.079.886"
+                                                                      opacity="0.5"/>
+                                                                <path fill="currentColor" fill-rule="evenodd"
+                                                                      d="M9.425 11.482c.413-.044.78.273.821.707l.5 5.263c.041.433-.26.82-.671.864c-.412.043-.78-.273-.821-.707l-.5-5.263c-.041-.434.26-.821.671-.864m5.15 0c.412.043.713.43.671.864l-.5 5.263c-.04.434-.408.75-.82.707c-.413-.044-.713-.43-.672-.864l.5-5.264c-.041-.433.409-.75.82-.707"
+                                                                      clip-rule="evenodd"/>
+                                                            </svg>
+                                                        </a>
+                                                        <a href="{{ url_for('home_blueprint.edit_hospitalisation', id_hospitalisation=hospitalisation.id_hospitalisation) }}"
+                                                           class="btn btn-primary btn-sm"
+                                                           data-bs-toggle="tooltip" data-bs-placement="top"
+                                                           title="Modifier">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                 height="24" viewBox="0 0 24 24">
+                                                                <path fill="currentColor"
+                                                                      d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14z"
+                                                                      opacity="0.5"/>
+                                                                <path fill="currentColor"
+                                                                      d="M16.519 16.501c.175-.136.334-.295.651-.612l3.957-3.958c.096-.095.052-.26-.075-.305a4.3 4.3 0 0 1-1.644-1.034a4.3 4.3 0 0 1-1.034-1.644c-.045-.127-.21-.171-.305-.075L14.11 12.83c-.317.317-.476.476-.612.651q-.243.311-.412.666c-.095.2-.166.414-.308.84l-.184.55l-.292.875l-.273.82a.584.584 0 0 0 .738.738l.82-.273l.875-.292l.55-.184c.426-.142.64-.212.84-.308q.355-.17.666-.412m5.849-5.809a2.163 2.163 0 1 0-3.06-3.059l-.126.128a.52.52 0 0 0-.148.465c.02.107.055.265.12.452c.13.375.376.867.839 1.33s.955.709 1.33.839c.188.065.345.1.452.12a.53.53 0 0 0 .465-.148z"/>
+                                                                <path fill="currentColor" fill-rule="evenodd"
+                                                                      d="M7.25 9A.75.75 0 0 1 8 8.25h6.5a.75.75 0 0 1 0 1.5H8A.75.75 0 0 1 7.25 9m0 4a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75m0 4a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75"
+                                                                      clip-rule="evenodd"/>
+                                                            </svg>
+                                                        </a>
+                                                        <a href="{{ url_for('home_blueprint.show_hospitalisation', id_hospitalisation=hospitalisation.id_hospitalisation) }}"
+                                                           class="btn btn-info btn-sm"
+                                                           data-bs-toggle="tooltip" data-bs-placement="top"
+                                                           title="Détails">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                 height="24" viewBox="0 0 24 24">
+                                                                <path fill="currentColor"
+                                                                      d="M3 10c0-3.771 0-5.657 1.172-6.828S7.229 2 11 2h2c3.771 0 5.657 0 6.828 1.172S21 6.229 21 10v4c0 3.771 0 5.657-1.172 6.828S16.771 22 13 22h-2c-3.771 0-5.657 0-6.828-1.172S3 17.771 3 14z"
+                                                                      opacity="0.5"/>
+                                                                <path fill="currentColor" fill-rule="evenodd"
+                                                                      d="M7.25 10A.75.75 0 0 1 8 9.25h8a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75m0 4a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75"
+                                                                      clip-rule="evenodd"/>
+                                                            </svg>
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- [ Main Content ] end -->
         </div>
-        <!-- [ sample-page ] end -->
-      </div>
-      <!-- [ Main Content ] end -->
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
+    <!-- [ Main Content ] end -->
 {% endblock content %}

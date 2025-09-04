@@ -3,38 +3,117 @@
 {% block title %} Chambres {% endblock title %}
 
 {% block content %}
-  <!-- [ Main Content ] start -->
-  <div class="pc-container">
+<div class="pc-container">
     <div class="pc-content">
-      <!-- [ breadcrumb ] start -->
-      <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Nos Chambres</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item" aria-current="page">Chambres</li>
-              </ul>
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Nos Chambres</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item" aria-current="page">Chambres</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <!-- [ breadcrumb ] end -->
 
+        <div class="row">
+            <div class="col-xl-4 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-3 align-items-center">
+                            <div class="col">
+                                <h4>Enregistrer une chambre</h4>
+                            </div>
+                        </div>
+                        <form role="form" method="post" action="">
+                            {{ form.hidden_tag() }}  <!-- CSRF Token -->
 
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-sm-12">
-          Chambres Page
+                            <div class="form-floating mb-3">
+                                {{ form.numbers(placeholder="Numéro de chambre", class="form-control") }}
+                                <label for="floatingInput">Numéro de chambre</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.description(placeholder="Description de chambre", class="form-control") }}
+                                <label for="floatingInput">Description de chambre</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.speciality(class="form-select") }}
+                                <label for="floatingInput">Spécialité de chambre</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.type(placeholder="Type de chambre", class="form-control") }}
+                                <label for="floatingInput">Type de chambre</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.capacity(placeholder="Capacité de la chambre", class="form-control", type="number") }}
+                                <label for="floatingInput">Capacité de la chambre</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                {{ form.etat(placeholder="État de la chambre", class="form-control") }}
+                                <label for="floatingInput">État de la chambre</label>
+                            </div>
+
+                            <div class="d-grid mt-4">
+                                <button type="submit" name="register" class="btn btn-secondary p-2">
+                                    Enregistrer la chambre
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8 col-md-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Chambres</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="">
+                                    <table class="table card-header">
+                                        <thead>
+                                            <tr>
+                                                <th>Numéro</th>
+                                                <th>Capacité</th>
+                                                <th>Type</th>
+                                                <th>État</th>
+                                                <th>Spécialité</th>
+                                                <th>Date de création</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for chambre in chambres %}
+                                                <tr>
+                                                    <td>{{ chambre.name }}</td>
+                                                    <td>{{ chambre.capacity }}</td>
+                                                    <td>{{ chambre.type }}</td>
+                                                    <td>{{ chambre.statut }}</td>
+                                                    <td>{{ chambre.speciality.name }}</td>
+                                                    <td>{{ chambre.date_creation.strftime('%d/%m/%Y') }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <!-- [ sample-page ] end -->
-      </div>
-      <!-- [ Main Content ] end -->
     </div>
-  </div>
-  <!-- [ Main Content ] end -->
+</div>
 {% endblock content %}

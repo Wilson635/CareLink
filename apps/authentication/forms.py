@@ -5,15 +5,17 @@ Copyright (c) 2019 - present AppSeed.us
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField
+from wtforms.fields.choices import SelectField
 from wtforms.validators import Email, DataRequired
+
 
 # login and registration
 
 
 class LoginForm(FlaskForm):
     username = StringField('Username',
-                         id='username_login',
-                         validators=[DataRequired()])
+                           id='username_login',
+                           validators=[DataRequired()])
     password = PasswordField('Password',
                              id='pwd_login',
                              validators=[DataRequired()])
@@ -21,11 +23,18 @@ class LoginForm(FlaskForm):
 
 class CreateAccountForm(FlaskForm):
     username = StringField('Username',
-                         id='username_create',
-                         validators=[DataRequired()])
+                           id='username_create',
+                           validators=[DataRequired()])
     email = StringField('Email',
-                      id='email_create',
-                      validators=[DataRequired(), Email()])
+                        id='email_create',
+                        validators=[DataRequired(), Email()])
     password = PasswordField('Password',
                              id='pwd_create',
                              validators=[DataRequired()])
+
+    role = SelectField('Role',
+                       id='role_create',
+                       choices=[('Medecin', 'Medecin'), ('Patient', 'Patient'), ('Admin', 'Admin'), ('Infirmière', 'Infirmière')],
+                       validators=[DataRequired()])
+
+

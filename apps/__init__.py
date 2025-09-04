@@ -12,6 +12,8 @@ from importlib import import_module
 
 from flask_cdn import CDN
 
+from apps.config import UPLOAD_FOLDER
+
 db = SQLAlchemy()
 login_manager = LoginManager()
 cdn = CDN()
@@ -56,6 +58,7 @@ def create_app(config):
 
     app = Flask(__name__,static_url_path=static_prefix)
     app.config.from_object(config)
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     register_extensions(app)
     register_blueprints(app)
     configure_database(app)
